@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:phone_verification/helpers/colors_constant.dart';
 import 'package:phone_verification/helpers/constants.dart';
 import 'package:phone_verification/helpers/utils.dart';
@@ -17,34 +18,14 @@ class Description extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: kDefaultPaddin/2),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(
-                        text: "${product.productName}\n",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline3
-                            .copyWith(color: Colors.black, fontWeight: FontWeight.bold),
-                    ),
-                    /*TextSpan(
-                      text: "Price\n",
-                      style: Theme.of(context).textTheme.headline6.copyWith(
-                          color: Colors.black, fontWeight: FontWeight.bold)
-                    ),
-                    TextSpan(
-                      text: "\$${product.price}",
-                      style: Theme.of(context).textTheme.headline4.copyWith(
-                          color: Colors.red, fontWeight: FontWeight.bold),
-                    ),*/
-
-                  ],
-                ),
-              ),
-            ],
+          Text(
+            product.productName,
+            style: Theme.of(context)
+                .textTheme
+                .headline3
+                .copyWith(color: Colors.black, fontWeight: FontWeight.bold),
           ),
           Row(
             children: <Widget>[

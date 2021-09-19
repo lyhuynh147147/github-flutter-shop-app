@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:phone_verification/helpers/colors_constant.dart';
 import 'package:phone_verification/helpers/utils.dart';
-import 'package:phone_verification/model/chat_view.dart';
+import 'package:phone_verification/screens/Customer/chat_view.dart';
 import 'package:phone_verification/widgets/card_user_info.dart';
 
 class CustomerUserListView extends StatefulWidget {

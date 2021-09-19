@@ -53,7 +53,7 @@ class _EditDetailViewState extends State<EditDetailView> {
               ),
               centerTitle: true,
               title: Text(
-                'Edit Detail',
+                'Edit Profile',
                 style: kBoldTextStyle.copyWith(
                   fontSize: 16,
                 ),

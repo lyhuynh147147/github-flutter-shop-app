@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:phone_verification/helpers/colors_constant.dart';
 import 'package:phone_verification/helpers/utils.dart';
+import 'package:phone_verification/screens/Customer/chat_view.dart';
 import 'package:phone_verification/widgets/card_user_info.dart';
 
 class AdminUserListView extends StatefulWidget {
@@ -37,12 +38,12 @@ class _AdminUserListViewState extends State<AdminUserListView> {
                           icon: Icons.chat,
                           onTap: () {
                             //TODO: CHAT
-                            /*Navigator.push(context,
+                            Navigator.push(context,
                                 MaterialPageRoute(
                                     builder: (context) => ChatScreen(
                                           isAdmin: true,
                                           uidCustomer: document.id,
-                                        )));*/
+                                        )));
                           },
                         ),
                       ],

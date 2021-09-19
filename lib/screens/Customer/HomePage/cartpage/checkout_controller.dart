@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_verification/helpers/shared_preferrence.dart';
 import 'package:phone_verification/helpers/validator.dart';
@@ -35,8 +36,12 @@ class CheckoutController {
   }) async {
 //   TODO: Payment
     try {
+
+      //String cusName2 = await loggedInUser.phoneNumber;
       String cusName = await StorageUtil.geFullName();
       String uid = await StorageUtil.getUid();
+      print(cusName);
+      //print(cusName2);
       //TODO: receiver info
       await FirebaseFirestore.instance
           .collection('Orders')

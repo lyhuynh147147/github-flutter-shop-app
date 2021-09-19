@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:phone_verification/helpers/colors_constant.dart';
 import 'package:phone_verification/helpers/utils.dart';
 import 'package:phone_verification/model/product.dart';
-import 'package:phone_verification/screens/Customer/HomePage/homescreen/size_config.dart';
 import 'package:phone_verification/screens/Customer/HomePage/homescreen/style.dart';
 import 'package:phone_verification/screens/customer/HomePage/details/product_controller.dart';
 
@@ -47,6 +46,8 @@ class _ItemCardsState extends State<ItemCards>  {
   int colorValue;
   String sizeValue;
 
+
+
   /*@override
   void initState() {
     // TODO: implement initState
@@ -88,14 +89,16 @@ class _ItemCardsState extends State<ItemCards>  {
   //     });
   //   }
   // }
-
+/*'${discount.toInt()}% OFF',*/
   @override
   Widget build(BuildContext context) {
-    //RatingController _controller = new RatingController();
+
+    double discount = 100 - ((widget.salePrice / widget.price) * 100);
+
     return GestureDetector(
       onTap: widget.onTap,
       child:  Container(
-        padding: EdgeInsets.all(10),
+        //padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(widget.image),
@@ -104,247 +107,133 @@ class _ItemCardsState extends State<ItemCards>  {
           borderRadius: BorderRadius.circular(6),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              children: [
-                Container(
-                  padding: EdgeInsets.all(10),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: Colors.grey.withOpacity(.5)
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // CustomText(
-                      //   text: widget.productName,
-                      //   size: 20,
-                      //   weight: FontWeight.bold,
-                      // ),
-                      PrimaryText(
-                          text: widget.productName, fontWeight: FontWeight.w700, color: Color(
-                          0xff231919), size: 20),
-                      // SizedBox(height: 5),
-                      // PrimaryText(
-                      //     text: 'widget.product.price', size: 18, fontWeight: FontWeight.w700),
-                      // SizedBox(height: 5),
-                      AutoSizeText(
-                        Util.intToMoneyType(widget.price) + ' VND',
-                        maxLines: 1,
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: kColorBlack,
-                            decoration: (widget.salePrice != 0)
-                                ? TextDecoration.lineThrough
-                                : TextDecoration.none),
-                        minFontSize: 5,
-                        textAlign: TextAlign.center,
+            (discount != 0)
+                ? Expanded(
+              flex: 9,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 8,bottom: 125),
+                    child: Container(
+              //padding: EdgeInsets.only(top: 10),
+              decoration: BoxDecoration(
+                    color: Colors.green,
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(5.0),
+                      topRight: Radius.circular(5.0),
+                    ),
+              ),
+              //height: 30,
+              width: 65,
+              child: Center(
+                    child: Text(
+                      ' ${discount.toInt()}% off ',
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold
                       ),
-                      //TODO: Sale Price
-                      (widget.salePrice != 0)
-                          ? AutoSizeText(
-                        Util.intToMoneyType(widget.salePrice) + ' VND',
-                        maxLines: 1,
-                        style: TextStyle(
-                            fontSize: 22,
-                            color: kColorRed,
-                            fontWeight: FontWeight.bold
-                        ),
-                        minFontSize: 5,
-                        textAlign: TextAlign.center,
-                      )
-                          : Text(' '),
-                    ],
+                    ),
+              ),
+            ),
                   ),
-                ),
-                Positioned(
-                  right: 10,
-                  bottom: 0,
-                  child: RawMaterialButton(
-                      onPressed: () {},
-                      elevation: 0,
-                      constraints: BoxConstraints(
-                        minWidth: 0,
-                      ),
-                      shape: CircleBorder(),
-                      fillColor:  Color(0xffec6813),
-                      padding: EdgeInsets.all(5),
-                      child: Icon(Icons.add, size: 16, color: Colors.white)),
                 )
-              ],
+                : Expanded(
+              flex: 9,
+                  child: Container(
+              //padding: EdgeInsets.only(top: 10),
+              // decoration: BoxDecoration(
+              //   color: Colors.pink,
+              //   borderRadius: BorderRadius.only(
+              //     //bottomLeft: Radius.circular(20.0),
+              //   ),
+              // ),
+              // height: 40,
+              // width: 60,
+              // child: Center(
+              //   child: Text(
+              //     '${discount.toInt()}%FF',
+              //     style: TextStyle(
+              //         fontSize: 16,
+              //         color: Colors.white,
+              //         fontWeight: FontWeight.bold
+              //     ),
+              //   ),
+              // ),
+            ),
+                ),
+
+
+            Expanded(
+              flex: 7,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Stack(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(8),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(6),
+                          color: Colors.grey.withOpacity(.5)
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // CustomText(
+                          //   text: widget.productName,
+                          //   size: 20,
+                          //   weight: FontWeight.bold,
+                          // ),
+                          Expanded(
+                            flex: 5,
+                            child: PrimaryText(
+                              text: widget.productName,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xff231919),
+                              size: 20,
+                            ),
+                          ),
+                          // SizedBox(height: 5),
+                          // PrimaryText(
+                          //     text: 'widget.product.price', size: 18, fontWeight: FontWeight.w700),
+                          // SizedBox(height: 5),
+                          AutoSizeText(
+                            Util.intToMoneyType(widget.price) + ' VND',
+                            maxLines: 1,
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: kColorBlack,
+                                decoration: (widget.salePrice != 0)
+                                    ? TextDecoration.lineThrough
+                                    : TextDecoration.none),
+                            minFontSize: 5,
+                            textAlign: TextAlign.center,
+                          ),
+                          //TODO: Sale Price
+                          (widget.salePrice != 0)
+                              ? AutoSizeText(
+                            Util.intToMoneyType(widget.salePrice) + ' VND',
+                            maxLines: 1,
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: kColorRed,
+                                fontWeight: FontWeight.bold
+                            ),
+                            minFontSize: 5,
+                            textAlign: TextAlign.center,
+                          )
+                              : Text(' '),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             )
           ],
         ),
-        // child: Column(
-        //   children: <Widget>[
-        //     // Expanded(
-        //     //   child: Padding(
-        //     //     padding: const EdgeInsets.all(2.0),
-        //     //     child: ClipRRect(
-        //     //         borderRadius: BorderRadius.only(
-        //     //           topLeft: Radius.circular(5),
-        //     //           topRight: Radius.circular(5),
-        //     //         ),
-        //     //         child: Image.network(
-        //     //           widget.image,
-        //     //           fit: BoxFit.fill,
-        //     //           width: double.infinity,
-        //     //         )
-        //     //       /*child: Hero(
-        //     //         tag: "${widget.id}",
-        //     //         child: Image.network(
-        //     //           widget.image,
-        //     //           fit: BoxFit.fill,
-        //     //           width: double.infinity,
-        //     //           //width: double.infinity,
-        //     //         ),
-        //     //       )*/
-        //     //     ),
-        //     //   ),
-        //     // ),
-        //     CustomText(
-        //       text: widget.productName,
-        //       size: 18,
-        //       weight: FontWeight.bold,
-        //     ),
-        //     ///Start
-        //     /*Container(
-        //     child: StreamBuilder(
-        //         stream: _controller.averageStream,
-        //         builder: (context, snapshot) {
-        //           return RatingBar.builder(
-        //             allowHalfRating: true,
-        //             initialRating: snapshot.hasData ? snapshot.data : 0,
-        //             itemCount: 5,
-        //             minRating: 0,
-        //             itemSize: 27,
-        //             itemBuilder: (context, _) => Icon(
-        //               Icons.star,
-        //               color: Colors.amberAccent,
-        //             ),
-        //           );
-        //         }),
-        //   ),*/
-        //     CustomText(
-        //       text: widget.brand,
-        //       color: Colors.grey,
-        //     ),
-        //     SizedBox(
-        //       height: 5,
-        //     ),
-        //     Row(
-        //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //       children: <Widget>[
-        //         /*Expanded(
-        //         child: Padding(
-        //           padding: const EdgeInsets.only(left: 8.0),
-        //           child: CustomText(
-        //             text: "\$${widget.price}",
-        //             size: 22,
-        //             weight: FontWeight.bold,
-        //           ),
-        //         ),
-        //       ),*/
-        //         Expanded(
-        //           child: Padding(
-        //             padding: const EdgeInsets.all(8.0),
-        //             child: Column(
-        //               children: [
-        //                 //TODO: Product Price
-        //                 AutoSizeText(
-        //                   Util.intToMoneyType(widget.price) + ' VND',
-        //                   maxLines: 1,
-        //                   style: TextStyle(
-        //                       fontSize: 16,
-        //                       color: kColorBlack,
-        //                       decoration: (widget.salePrice != 0)
-        //                           ? TextDecoration.lineThrough
-        //                           : TextDecoration.none),
-        //                   minFontSize: 5,
-        //                   textAlign: TextAlign.center,
-        //                 ),
-        //                 //TODO: Sale Price
-        //                 (widget.salePrice != 0)
-        //                     ? AutoSizeText(
-        //                   Util.intToMoneyType(widget.salePrice) + ' VND',
-        //                   maxLines: 1,
-        //                   style: TextStyle(
-        //                       fontSize: 22,
-        //                       color: kColorRed,
-        //                       fontWeight: FontWeight.bold
-        //                   ),
-        //                   minFontSize: 5,
-        //                   textAlign: TextAlign.center,
-        //                 )
-        //                     : Text(' '),
-        //               ],
-        //             ),
-        //           ),
-        //         ),
-        //         IconButton(
-        //           icon: Icon(Icons.star),
-        //           onPressed: () {
-        //             //cartController.addProductToCart(product);
-        //           },
-        //         ),
-        //         /*Positioned(
-        //         left: 330,
-        //         top: 2,
-        //         child: IconButton(
-        //           onPressed: () {
-        //             //TODO: Check logging
-        //             if (_isLogging) {
-        //               if (!_isLoveCheck) {
-        //                 //TODO: Adding product to Wishlist
-        //                 _controller
-        //                     .addProductToWishlist(product: widget.product)
-        //                     .then((value) {
-        //                   if (value) {
-        //                     setState(() {
-        //                       _isLoveCheck = true;
-        //                     });
-        //                     Scaffold.of(context).showSnackBar(SnackBar(
-        //                       backgroundColor: kColorWhite,
-        //                       content: Row(
-        //                         children: <Widget>[
-        //                           Icon(
-        //                             Icons.check,
-        //                             color: kColorGreen,
-        //                             size:25,
-        //                           ),
-        //                           SizedBox(
-        //                             width: 10,
-        //                           ),
-        //                           Expanded(
-        //                             child: Text(
-        //                               'Product has been add to Wishlist.',
-        //                               style: kBoldTextStyle.copyWith(
-        //                                   fontSize: 14),
-        //                             ),
-        //                           )
-        //                         ],
-        //                       ),
-        //                     ));
-        //                   }
-        //                 });
-        //               }
-        //             } else {
-        //               Navigator.pushNamed(context, 'register_screen');
-        //             }
-        //           },
-        //           icon: Icon(
-        //             _isLoveCheck ? Icons.favorite : Icons.favorite_border,
-        //             color: _isLoveCheck ? kColorRed : kColorBlack,
-        //             size: 30,
-        //           ),
-        //         ),
-        //       ),*/
-        //       ],
-        //     ),
-        //   ],
-        // ),
       ),
     );
   }
@@ -367,78 +256,3 @@ class CustomText extends StatelessWidget {
     );
   }
 }
-
-/*GestureDetector(
-      onTap: press,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.all(kDefaultPaddin),
-              // For  demo we use fixed height  and width
-              // Now we dont need them
-              // height: 180,
-              // width: 160,
-              /*decoration: BoxDecoration(
-                color: product.color,
-                borderRadius: BorderRadius.circular(16),
-              ),*/
-              child: Hero(
-                tag: "${product.id}",
-                child: Image.asset(product.image),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: kDefaultPaddin / 4),
-            child: Text(
-              // products is out demo list
-              product.title,
-              style: TextStyle(color: kTextLightColor),
-            ),
-          ),
-          Text(
-            "\$${product.price}",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          )
-        ],
-      ),
-    )*/
-/*child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.all(kDefaultPaddin),
-              // For  demo we use fixed height  and width
-              // Now we dont need them
-              // height: 180,
-              // width: 160,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                //color: new Color(products.color),
-                //color: Color(products.color.alpha).withOpacity(1),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Hero(
-                tag: "${widget.id}",
-                child: Image.network(widget.image),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: kDefaultPaddin / 4),
-            child: Text(
-              // products is out demo list
-              widget.productName,
-              style: TextStyle(color: kTextLightColor),
-            ),
-          ),
-          Text(
-            "\$${widget.price}",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-
-        ],
-      ),*/

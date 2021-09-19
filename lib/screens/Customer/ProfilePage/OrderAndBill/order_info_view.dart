@@ -56,7 +56,7 @@ class _OrderInfoViewState extends State<OrderInfoView> {
                     content: widget.orderInfo.createAt,
                   ),
                   TitleWidget(
-                    title: 'Customer',
+                    title: 'Tài khoản',
                     content: widget.orderInfo.customerName,
                   ),
                   TitleWidget(

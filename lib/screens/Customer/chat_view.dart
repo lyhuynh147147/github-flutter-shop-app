@@ -153,7 +153,6 @@ class _ChatScreenState extends State<ChatScreen>
   @override
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
-    //ConstScreen.setScreen(context);
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -162,225 +161,209 @@ class _ChatScreenState extends State<ChatScreen>
         }
       },
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.black,
+        appBar:  widget.isAdmin
+            ? AppBar(
+          elevation: 0,
           automaticallyImplyLeading: false,
+          backgroundColor: Colors.white,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios_outlined,
+              color: Colors.black87,
+              //size: 30,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
           title: Row(
             children: [
-              BackButton(),
-              SizedBox(width: 10 * 0.75),
+              CircleAvatar(
+                backgroundImage: AssetImage("assets/images/welcome_wall.jpg"),
+                maxRadius: 20,
+              ),
+              SizedBox(width: 12,),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "SalesMan",
+                    "Khách Hàng",
                     style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
+                      color: Colors.black
                     ),
                   ),
                   SizedBox(
                     height: 5,
                   ),
                   Text(
-                    "Active 3m ago",
-                    style: TextStyle(fontSize: 12),
+                    "Active 1 min ago",
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.black,
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+          actions: [
+            Icon(Icons.more_vert,color: Colors.grey.shade700,),
+            SizedBox(width:10,),
+          ],
+        )
+            : AppBar(
+          elevation: 0,
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.white,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios_outlined,
+              color: Colors.black87,
+              //size: 30,
+            ),
+            onPressed: () {
+              Navigator.pushNamed(context, 'welcome_screen');
+            },
+          ),
+          title: Row(
+            children: [
+              CircleAvatar(
+                backgroundImage: AssetImage("assets/images/welcome_wall.jpg"),
+                maxRadius: 20,
+              ),
+              SizedBox(width: 12,),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Sale-Man",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black
+                    ),
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    "Active 1 min ago",
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.black,
+                    ),
                   )
                 ],
               )
             ],
           ),
           actions: [
-            IconButton(
-              icon: Icon(Icons.local_phone),
-              onPressed: () {},
-            ),
-            IconButton(
-              icon: Icon(Icons.videocam),
-              onPressed: () {},
-            ),
-            SizedBox(width: 10 / 2),
+            Icon(Icons.more_vert,color: Colors.grey.shade700,),
+            SizedBox(width:10,),
           ],
-        ),
-        body: SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              SizedBox(height: 10,),
-              //TODO: Chat space
-              StreamBuilder(
-                stream: _controller.stream,
-                builder: (context, mainSnapshot) {
-                  if (mainSnapshot.hasData) {
-                    return StreamBuilder<QuerySnapshot>(
-                      stream: FirebaseFirestore.instance
-                          .collection('Chat')
-                          .doc(mainSnapshot.data)
-                          .collection(mainSnapshot.data)
-                          .orderBy('timestamp')
-                          .snapshots(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<QuerySnapshot> snapshot) {
-                        if (!snapshot.hasData || !mainSnapshot.hasData) {
-                          return Container();
-                        }
-                        /*Map data = snapshot.data();*/
-                        final messages = snapshot.data.docs.reversed;
-                        messageBubbles = [];
-                        for (var message in messages) {
-                          Map data = message.data();
-                          final messageText = data['text'];
-                          final messageSender = data['sender'];
-                          final List<dynamic> images = data['image'];
-                          final currentUser = loggedInUser.email;
+        )  ,
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            SizedBox(height: 10,),
+            //TODO: Chat space
+            StreamBuilder(
+              stream: _controller.stream,
+              builder: (context, mainSnapshot) {
+                if (mainSnapshot.hasData) {
+                  return StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance
+                        .collection('Chat')
+                        .doc(mainSnapshot.data)
+                        .collection(mainSnapshot.data)
+                        .orderBy('timestamp')
+                        .snapshots(),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (!snapshot.hasData || !mainSnapshot.hasData) {
+                        return Container();
+                      }
+                      /*Map data = snapshot.data();*/
+                      final messages = snapshot.data.docs.reversed;
+                      messageBubbles = [];
+                      for (var message in messages) {
+                        Map data = message.data();
+                        final messageText = data['text'];
+                        final messageSender = data['sender'];
+                        final List<dynamic> images = data['image'];
+                        final currentUser = loggedInUser.email == null ? loggedInUser.phoneNumber : loggedInUser.email;
 
-                          final messageBubble = MessageBubble(
-                            context: context,
-                            uid: uid,
-                            createAt: data['timestamp'],
-                            documentID: message.id,
-                            sender: messageSender,
-                            text: (messageText != null) ? messageText : '',
-                            isAdmin: data['is_admin'],
-                            isMe: currentUser == messageSender,
-                            onlineImagesList:
-                                (images != null || images.length != 0)
-                                    ? images
-                                    : [],
-                          );
-
-                          messageBubbles.add(messageBubble);
-                        }
-                        return Expanded(
-                          child: ListView(
-                            reverse: true,
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 10.0, vertical: 20.0),
-                            children: messageBubbles,
-                          ),
+                        final messageBubble = MessageBubble(
+                          context: context,
+                          uid: uid,
+                          createAt: data['timestamp'],
+                          documentID: message.id,
+                          sender: messageSender,
+                          text: (messageText != null) ? messageText : '',
+                          isAdmin: data['is_admin'],
+                          isMe: currentUser == messageSender,
+                          onlineImagesList:
+                          (images != null || images.length != 0)
+                              ? images
+                              : [],
                         );
-                      },
-                    );
-                  } else {
-                    return Center(child: CircularProgressIndicator());
-                  }
-                },
-              ),
-              //TODO: Image holder
-              (images.length != 0) ? imageGridView() : Container(),
-              //TODO: bottom chat sent
-              //SizedBox(height: 10,),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 2, 10, 0),
-                child: Container(
-                  //height: double.infinity,
-                  //height: 60,
-                  width: double.infinity,
-                  //decoration: kMessageContainerDecoration,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: Colors.black.withOpacity(0.7)),
-                     // color: widget.backgroundColor
-                    color: kPrimaryColor.withOpacity(0.05),
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: kDefaultPadding * 0.75,
-                          ),
-                          decoration: BoxDecoration(
-                            color: kPrimaryColor.withOpacity(0.05),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  loadAssets();
-                                },
-                                child: Container(
 
-                                  child: Icon(
-                                    Icons.add,
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1
-                                        .color
-                                        .withOpacity(0.64),
-                                    size: 30,
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 10),
-                              GestureDetector(
-                                onTap: () {
-                                  loadAssets();
-                                },
+                        messageBubbles.add(messageBubble);
+                      }
+                      return Expanded(
+                        child: ListView(
+                          reverse: true,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 20.0),
+                          children: messageBubbles,
+                        ),
+                      );
+                    },
+                  );
+                } else {
+                  return Center(child: CircularProgressIndicator());
+                }
+              },
+            ),
+            //TODO: Image holder
+            (images.length != 0) ? imageGridView() : Container(),
+            //TODO: bottom chat sent
+            //SizedBox(height: 10,),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 2, 10, 0),
+              child: Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  border: Border.all(color: Colors.black.withOpacity(0.7)),
+                  color: Colors.white,
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 20 * 0.75,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color(0xFF00BF6D).withOpacity(0.05),
+                          borderRadius: BorderRadius.circular(40),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                loadAssets();
+                              },
+                              child: Container(
+
                                 child: Icon(
-                                  Icons.camera_alt_outlined,
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      .color
-                                      .withOpacity(0.64),
-                                ),
-                              ),
-                              //TODO: sent message
-                              Expanded(
-                                child: TextField(
-                                  controller: messageTextController,
-                                  onChanged: (value) {
-                                    messageText = value;
-                                  },
-                                  decoration: kMessageTextFieldDecoration,
-                                ),
-                              ),
-                              //TODO: sent message
-                              FlatButton(
-                                minWidth: 10,
-                                onPressed: () async {
-                                  if (images.length != 0) {
-                                    List<String> listImages = await saveImage(images);
-                                    FirebaseFirestore.instance
-                                        .collection('Chat')
-                                        .doc(uid)
-                                        .collection(uid)
-                                        .add({
-                                      'roomId': uid,
-                                      'text': messageText,
-                                      'is_admin': widget.isAdmin ? true : false,
-                                      'sender': loggedInUser.email,
-                                      'image': listImages,
-                                      'timestamp':
-                                      DateTime.now().toUtc().millisecondsSinceEpoch
-                                        });
-                                  } else {
-                                    FirebaseFirestore.instance
-                                        .collection('Chat')
-                                        .doc(uid)
-                                        .collection(uid)
-                                        .add({
-                                      'roomId': uid,
-                                      'text': messageText,
-                                      'is_admin': widget.isAdmin ? true : false,
-                                      'sender': loggedInUser.email,
-                                      'image': [],
-                                      'timestamp':
-                                      DateTime.now().toUtc().millisecondsSinceEpoch}
-                                      );
-                                  }
-                                  messageTextController.clear();
-                                  setState(() {
-                                    images.clear();
-                                  });
-                                  },
-                                child: Icon(
-                                  Icons.send_sharp,
+                                  Icons.add,
                                   color: Theme.of(context)
                                       .textTheme
                                       .bodyText1
@@ -389,17 +372,91 @@ class _ChatScreenState extends State<ChatScreen>
                                   size: 30,
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                            SizedBox(width: 10),
+                            GestureDetector(
+                              onTap: () {
+                                loadAssets();
+                              },
+                              child: Icon(
+                                Icons.camera_alt_outlined,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    .color
+                                    .withOpacity(0.64),
+                              ),
+                            ),
+                            //TODO: sent message
+                            Expanded(
+                              child: TextField(
+                                controller: messageTextController,
+                                onChanged: (value) {
+                                  messageText = value;
+                                },
+                                decoration: kMessageTextFieldDecoration,
+                              ),
+                            ),
+                            //TODO: sent message
+                            FlatButton(
+                              minWidth: 10,
+                              onPressed: () async {
+                                print(loggedInUser.uid);
+                                if (images.length != 0) {
+                                  List<String> listImages = await saveImage(images);
+                                  FirebaseFirestore.instance
+                                      .collection('Chat')
+                                      .doc(uid)
+                                      .collection(uid)
+                                      .add({
+                                    'roomId': uid,
+                                    'text': messageText,
+                                    'is_admin': widget.isAdmin ? true : false,
+                                    'sender': loggedInUser.email == null ? loggedInUser.phoneNumber : loggedInUser.email,
+                                    'image': listImages,
+                                    'timestamp':
+                                    DateTime.now().toUtc().millisecondsSinceEpoch
+                                  });
+                                } else {
+                                  FirebaseFirestore.instance
+                                      .collection('Chat')
+                                      .doc(uid)
+                                      .collection(uid)
+                                      .add({
+                                    'roomId': uid,
+                                    'text': messageText,
+                                    'is_admin': widget.isAdmin ? true : false,
+                                    'sender': loggedInUser.email == null ? loggedInUser.phoneNumber : loggedInUser.email,
+                                    'image': [],
+                                    'timestamp':
+                                    DateTime.now().toUtc().millisecondsSinceEpoch}
+                                  );
+                                }
+                                messageTextController.clear();
+                                setState(() {
+                                  images.clear();
+                                });
+                              },
+                              child: Icon(
+                                Icons.send_sharp,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .bodyText1
+                                    .color
+                                    .withOpacity(0.64),
+                                size: 30,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(height: 5,)
-            ],
-          ),
+            ),
+            SizedBox(height: 5,)
+          ],
         ),
       ),
     );
@@ -411,11 +468,3 @@ class _ChatScreenState extends State<ChatScreen>
   // TODO: implement wantKeepAlive
   bool get wantKeepAlive => true;
 }
-const kPrimaryColor = Color(0xFF00BF6D);
-const kSecondaryColor = Color(0xFFFE9901);
-const kContentColorLightTheme = Color(0xFF1D1D35);
-const kContentColorDarkTheme = Color(0xFFF5FCF9);
-const kWarninngColor = Color(0xFFF3BB1C);
-const kErrorColor = Color(0xFFF03738);
-
-const kDefaultPadding = 20.0;

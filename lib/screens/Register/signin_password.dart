@@ -224,26 +224,6 @@ class _SignInPasswordState extends State<SignInPassword> with TickerProviderStat
                               key: _formKey,
                               child: Column(
                                 children: [
-                                  // Container(
-                                  //     child: Padding(
-                                  //       padding: const EdgeInsets.symmetric(
-                                  //           vertical: 10.0, horizontal: 10.0),
-                                  //       child: TextFormField(
-                                  //         enabled: !isLoading,
-                                  //         controller: nameController,
-                                  //         textInputAction: TextInputAction.none,
-                                  //         onEditingComplete: () => node.nextFocus(),
-                                  //         decoration: InputDecoration(
-                                  //           // floatingLabelBehavior: FloatingLabelBehavior.never,
-                                  //           labelText: 'Name',
-                                  //         ),
-                                  //         validator: (value) {
-                                  //           if (value.isEmpty) {
-                                  //             return 'Please enter a name';
-                                  //           }
-                                  //         },
-                                  //       ),
-                                  //     )),
                                   Container(
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
@@ -264,39 +244,6 @@ class _SignInPasswordState extends State<SignInPassword> with TickerProviderStat
                                         ),
                                       )),
                                   ///
-                                  // Container(
-                                  //     child: Padding(
-                                  //       padding: const EdgeInsets.symmetric(
-                                  //           vertical: 10.0, horizontal: 10.0),
-                                  //       child: TextFormField(
-                                  //         enabled: !isLoading,
-                                  //         controller: passwordController,
-                                  //         obscureText: isShowPassword,
-                                  //         textInputAction: TextInputAction.none,
-                                  //         onEditingComplete: () => node.nextFocus(),
-                                  //         decoration: InputDecoration(
-                                  //           //floatingLabelBehavior: FloatingLabelBehavior.never,
-                                  //           labelText: 'Mật khẩu',
-                                  //           suffixIcon: GestureDetector(
-                                  //             child: Icon(
-                                  //               isShowPassword
-                                  //                   ? Icons.remove_red_eye
-                                  //                   : Icons.visibility_off,
-                                  //             ),
-                                  //             onTap: (){
-                                  //               setState(() {
-                                  //                 isShowPassword = !isShowPassword;
-                                  //               });
-                                  //             },
-                                  //           )
-                                  //         ),
-                                  //         validator: (value) {
-                                  //           if (value.isEmpty) {
-                                  //             return 'Please enter a Password';
-                                  //           }
-                                  //         },
-                                  //       ),
-                                  //     )),
                                   Container(
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -405,7 +352,7 @@ class _SignInPasswordState extends State<SignInPassword> with TickerProviderStat
                                             .doc(_auth.currentUser.uid)
                                             .update({
                                           'id': _auth.currentUser.uid,
-                                          //'username': email,
+                                          'username': nameController.text,
                                           'fullname':nameController.text,
                                           'password': pwdSha512,
                                           //'fullname': nameController.text,
@@ -418,8 +365,9 @@ class _SignInPasswordState extends State<SignInPassword> with TickerProviderStat
                                           'type': 'customer',
                                         });
                                         Users userInfo = new Users(
-                                            '',
-                                            '',
+                                            /*fullName,email,password,*/
+                                            nameController.text,
+                                            nameController.text,
                                             '',
                                             '',
                                             '',
@@ -429,11 +377,11 @@ class _SignInPasswordState extends State<SignInPassword> with TickerProviderStat
                                             '',
                                             'customer');
                                         StorageUtil.setUid(_auth.currentUser.uid);
-                                        //StorageUtil.setFullName(fullName);
+                                        StorageUtil.setFullName(_auth.currentUser.phoneNumber);
                                         /*await*/ StorageUtil.setIsLogging(true);
                                         StorageUtil.setUserInfo(userInfo);
                                         StorageUtil.setAccountType('customer');
-                                        //StorageUtil.setPassword(pwdSha512);
+                                        StorageUtil.setPassword(pwdSha512);
                                         //_isBtnLoadingController.sink.add(true);
                                         Navigator.pushAndRemoveUntil(context,
                                           MaterialPageRoute(

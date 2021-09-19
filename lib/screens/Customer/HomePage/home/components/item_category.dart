@@ -36,7 +36,7 @@ class ItemCategory extends StatelessWidget {
                 height: 3,
                 width: 22,
                 decoration: BoxDecoration(
-                  color: kPrimaryColor,
+                  color: Color(0xFF00BF6D),
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),

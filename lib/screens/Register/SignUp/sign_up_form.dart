@@ -117,6 +117,7 @@ class _SignUpViewState extends State<SignUpView> {
                 backgroundColor: kColorBlack,
                 isDisablePress: snapshot.hasData ? snapshot.data : true,
                 title: 'REGISTER',
+                height: 50,
                 onPress: () async {
                   bool result = await signUpController.onSubmitRegister(
                       fullName: _fullName,

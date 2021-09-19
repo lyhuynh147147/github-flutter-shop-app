@@ -51,7 +51,7 @@ class _InputTextState extends State<InputText> {
         ),
         labelText: widget.title,
         focusColor: Colors.black,
-        labelStyle: kBoldTextStyle.copyWith(fontSize: 15),
+        labelStyle: kBoldTextStyle.copyWith(fontSize: 16),
         errorText: (widget.errorText == '') ? null : widget.errorText,
         suffixIcon: widget.isPassword
             ? GestureDetector(
@@ -70,7 +70,7 @@ class _InputTextState extends State<InputText> {
               color: (widget.errorText != '') ? kColorBlack : kColorRed),
         ),
       ),
-      style: TextStyle(fontSize: 14),
+      style: TextStyle(fontSize: 16),
       obscureText: isShowPassword,
       keyboardType: widget.inputType,
       onChanged: widget.onValueChange,

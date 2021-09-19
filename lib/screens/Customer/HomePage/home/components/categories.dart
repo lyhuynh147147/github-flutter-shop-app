@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:phone_verification/helpers/colors_constant.dart';
 import 'package:phone_verification/helpers/constants.dart';
 import 'package:phone_verification/screens/Customer/HomePage/home/components/body.dart';
+import 'package:phone_verification/screens/Customer/HomePage/homescreen/bodys.dart';
 import 'package:phone_verification/widgets/background_image.dart';
 
 
@@ -80,8 +81,8 @@ class _CategoriesState extends State<Categories> {
               Text(
                 "Category",
                 style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 22,
+                  color: Colors.black54,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -89,10 +90,10 @@ class _CategoriesState extends State<Categories> {
                 child: Row(
                   children: [
                     Text(
-                      "View more",
+                      "View All",
                       style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 22,
+                        color: Colors.grey,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -120,7 +121,7 @@ class _CategoriesState extends State<Categories> {
           ),
           SizedBox(height: 10,),
           Container(
-             height: 220,
+             height: 120,
              child: ListView.builder(
                scrollDirection: Axis.horizontal,
                itemCount: categories.length,
@@ -150,11 +151,11 @@ class _CategoriesState extends State<Categories> {
       child: Padding(
         padding: EdgeInsets.only(left: 10,),
         child: Container(
-          width: 180,
+          width: 120,
           //alignment: Alignment.center,
           decoration: BoxDecoration(
             color: Colors.white.withOpacity(.05),
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(5),
             border: Border.all(
               color: selectedIndex == index ? kTextColor : kTextLightColor,
             ),

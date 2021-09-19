@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:phone_verification/helpers/constants.dart';
 import 'package:phone_verification/model/product.dart';
 import 'package:phone_verification/screens/Customer/HomePage/details/components/color_and_size.dart';
-import 'package:phone_verification/screens/Customer/HomePage/details/components/product_title_with_image.dart';
 
-import 'add_to_cart.dart';
-import 'description.dart';
 
 class Body extends StatefulWidget {
   final Product product;

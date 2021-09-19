@@ -31,10 +31,10 @@ class _RoundedButtonState extends State<RoundedButton> {
         }
       },
       child: Container(
-        height: 55,
+        height: widget.height,
         width: widget.width,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(20),
           border: Border.all(color: Colors.white),
           color: widget.backgroundColor
         ),

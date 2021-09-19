@@ -43,10 +43,14 @@ class RatingComment extends StatelessWidget {
             : null,
         child: Container(
           decoration: BoxDecoration(
-              border: Border(
-            top: BorderSide(color: kColorBlack.withOpacity(0.2), width: 1),
-            bottom: BorderSide(color: kColorBlack.withOpacity(0.2), width: 1),
-          )),
+            border: Border(
+              top: BorderSide(color: kColorBlack.withOpacity(0.2), width: 1),
+              bottom: BorderSide(color: kColorBlack.withOpacity(0.2), width: 1),
+              left: BorderSide(color: kColorBlack.withOpacity(0.2), width: 1),
+              right: BorderSide(color: kColorBlack.withOpacity(0.2), width: 1),
+            ),
+            //borderRadius: BorderRadius.circular(10),
+          ),
           child: Padding(
             padding: EdgeInsets.symmetric(
                 vertical: 2,

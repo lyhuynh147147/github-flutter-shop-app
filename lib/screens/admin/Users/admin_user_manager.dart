@@ -30,9 +30,10 @@ class _UserManagerViewState extends State<UserManagerView>
         title: Text(
           'User List',
           style: TextStyle(
-              color: kColorBlack,
-              fontSize: 16,
-              fontWeight: FontWeight.w500),
+            color: kColorBlack,
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+          ),
         ),
         centerTitle: true,
         actions: <Widget>[
@@ -78,7 +79,10 @@ class _UserManagerViewState extends State<UserManagerView>
         ),
       ),
       body: TabBarView(
-        children: [CustomerUserListView(), AdminUserListView()],
+        children: [
+          CustomerUserListView(),
+          AdminUserListView(),
+        ],
         controller: _tabController,
       ),
     );

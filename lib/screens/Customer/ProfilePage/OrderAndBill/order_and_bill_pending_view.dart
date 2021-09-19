@@ -65,6 +65,7 @@ class _OrderAndBillPendingViewState extends State<OrderAndBillPendingView> {
                       if (mainSnapshot.hasData && snapshot.hasData) {
                         return ListView(
                           children: snapshot.data.docs.map((DocumentSnapshot document) {
+                            print(snapshot.data.docs.length);
                             OrderInfo orderInfo = new OrderInfo(
                                 id: document['id'],
                                 subId: document['sub_Id'],

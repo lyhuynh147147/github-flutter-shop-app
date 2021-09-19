@@ -8,6 +8,7 @@ import 'package:phone_verification/helpers/colors_constant.dart';
 import 'package:phone_verification/helpers/shared_preferrence.dart';
 import 'package:phone_verification/model/product.dart';
 import 'package:phone_verification/screens/Customer/HomePage/home/components/category_list.dart';
+import 'package:phone_verification/screens/Customer/HomePage/homescreen/item_cards.dart';
 import 'package:phone_verification/screens/Customer/SearchPage/search_view.dart';
 import 'package:phone_verification/screens/customer/HomePage/details/details_screen.dart';
 import 'package:phone_verification/screens/customer/HomePage/home/components/categories.dart';
@@ -101,59 +102,6 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin{
 
 
   ///
-
-
-  Widget searchBar() {
-    double _w = MediaQuery.of(context).size.width;
-    return Padding(
-      padding: EdgeInsets.fromLTRB(_w/20, _w/25, _w/20,0 ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            alignment: Alignment.center,
-            height: _w/8.5,
-            width: _w/1.36,
-            padding: EdgeInsets.symmetric(horizontal: _w/60),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(99),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(.1),
-                  blurRadius: 30,
-                  offset: Offset(0,15),
-                ),
-              ]
-            ),
-            child: TextField(
-              maxLines: 1,
-              decoration: InputDecoration(
-                fillColor: Colors.transparent,
-                filled: true,
-                hintStyle: TextStyle(
-                  color: Colors.black.withOpacity(.4),
-                  fontWeight: FontWeight.w600,
-                  fontSize: _w/22,
-                ),
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Colors.black.withOpacity(.6),
-                ),
-                hintText: 'Search anything....',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none
-                ),
-                contentPadding: EdgeInsets.zero,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     double _w = MediaQuery.of(context).size.width;
@@ -238,28 +186,12 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin{
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          //SizedBox(height: _w / 6),
-          // //searchBar(),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin,vertical: kDefaultPaddin),
-          //   child: Text(
-          //     "Womens",
-          //     style: Theme.of(context)
-          //         .textTheme
-          //         .headline5
-          //         .copyWith(fontWeight: FontWeight.bold),
-          //   ),
-          // ),
-          // //searchBar(),
-          //Categories(),
-          //CategoryList(),
-
           Container(
             child: StreamBuilder<QuerySnapshot>(
-                stream: getFirestoreSnapshot(),
-                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (!snapshot.hasData) {
-                    return Container(
+              stream: getFirestoreSnapshot(),
+              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (!snapshot.hasData) {
+                  return Container(
                       width: 350,
                       height: 500,
                       child: Stack(
@@ -291,63 +223,8 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin{
                         ],
                       ),
                     );
-                  } else {
-                    // return Expanded(
-                    //   child: Padding(
-                    //     padding: EdgeInsets.all(0),
-                    //     child: GridView.count(
-                    //       shrinkWrap: true,
-                    //       physics: ScrollPhysics(),
-                    //       scrollDirection: Axis.vertical,
-                    //       crossAxisCount: 2,
-                    //       padding: const EdgeInsets.all(10),
-                    //       crossAxisSpacing: 10,
-                    //       mainAxisSpacing: 6,
-                    //       childAspectRatio: 0.7,
-                    //       children: snapshot.data.docs
-                    //           .map((DocumentSnapshot document) {
-                    //         return ItemCard(
-                    //           brand: document['brand'],
-                    //           productName: document['name'],
-                    //           image: document['image'][0],
-                    //           isSoldOut: (document['quantity'] == '0'),
-                    //           price: int.parse(document['price']),
-                    //           salePrice: (document['sale_price'] != '0')
-                    //               ? int.parse(document['sale_price'])
-                    //               : 0,
-                    //           onTap: ()  {
-                    //             Product product = new Product(
-                    //               id: document['id'],
-                    //               productName: document['name'],
-                    //               imageList: document['image'],
-                    //               category: document['categogy'],
-                    //               sizeList: document['size'],
-                    //               colorList: document['color'],
-                    //               price: document['price'],
-                    //               salePrice: document['sale_price'],
-                    //               brand: document['brand'],
-                    //               madeIn: document['made_in'],
-                    //               quantityMain: document['quantity'],
-                    //               quantity: '',
-                    //               description: document['description'],
-                    //               rating: document['rating'],
-                    //             );
-                    //             Navigator.push(
-                    //               context,
-                    //               MaterialPageRoute(
-                    //                 builder: (context) => DetailsScreen(
-                    //                   product: product,
-                    //                 ),
-                    //               ),
-                    //             );
-                    //           },
-                    //         );
-                    //       }).toList(),
-                    //     ),
-                    //   ),
-                    // );
-
-                    return Expanded(
+                } else {
+                  return Expanded(
                       child: Padding(
                         padding: EdgeInsets.all(0),
                         child: StaggeredGridView.count(
@@ -367,7 +244,7 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin{
                           staggeredTiles: generateTiles(snapshot.data.docs.length),
                           children: snapshot.data.docs
                               .map((DocumentSnapshot document) {
-                            return ItemCard(
+                            return ItemCards(
                               brand: document['brand'],
                               productName: document['name'],
                               image: document['image'][0],
@@ -407,222 +284,22 @@ class _BodyState extends State<Body> with SingleTickerProviderStateMixin{
                         ),
                       ),
                     );
-                  }
-                }),
+                }
+              },
+            ),
           ),
-          /*StreamBuilder<List<Product>>(
-            stream: FirestoreService().getProducts(),
-            builder: (context, AsyncSnapshot<List<Product>> snapshot) {
-              if (!snapshot.hasData || snapshot.data == null)
-                return Container();
-              if (snapshot.data.isEmpty)
-                return Container();
-              return Expanded(
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: kDefaultPaddin),
-                  child: GridView.builder(
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: kDefaultPaddin,
-                        crossAxisSpacing: kDefaultPaddin,
-                        childAspectRatio: 0.75,
-                      ),
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (BuildContext context, index) => ItemCard(
-                        product: snapshot.data[index],
-                        press: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              *//*builder: (context) => DetailsScreen(
-                                product: snapshot.data[index],
-                              ),*//*
-                            )),
-                      )),
-                ),
-              );
-            },
-          )*/
         ],
       ),
     );
   }
-  Widget buildMain(){
-    return StreamBuilder<QuerySnapshot>(
-        stream: getFirestoreSnapshot(),
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) {
-            return Container(
-              width: 350,
-              height: 500,
-              child: Stack(
-                children: <Widget>[
-                  Center(
-                    child: Container(
-                      width: 187,
-                      height: 110,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: AssetImage(
-                              KImageAddress + 'noSearchResult.png'),
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 325,
-                    left: 80,
-                    child: Text(
-                      'Sorry, No Search Result',
-                      style: kBoldTextStyle.copyWith(
-                          color: kColorBlack.withOpacity(0.8),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  )
-                ],
-              ),
-            );
-          } else {
-            // return Expanded(
-            //   child: Padding(
-            //     padding: EdgeInsets.all(0),
-            //     child: GridView.count(
-            //       shrinkWrap: true,
-            //       physics: ScrollPhysics(),
-            //       scrollDirection: Axis.vertical,
-            //       crossAxisCount: 2,
-            //       padding: const EdgeInsets.all(10),
-            //       crossAxisSpacing: 10,
-            //       mainAxisSpacing: 6,
-            //       childAspectRatio: 0.7,
-            //       children: snapshot.data.docs
-            //           .map((DocumentSnapshot document) {
-            //         return ItemCard(
-            //           brand: document['brand'],
-            //           productName: document['name'],
-            //           image: document['image'][0],
-            //           isSoldOut: (document['quantity'] == '0'),
-            //           price: int.parse(document['price']),
-            //           salePrice: (document['sale_price'] != '0')
-            //               ? int.parse(document['sale_price'])
-            //               : 0,
-            //           onTap: ()  {
-            //             Product product = new Product(
-            //               id: document['id'],
-            //               productName: document['name'],
-            //               imageList: document['image'],
-            //               category: document['categogy'],
-            //               sizeList: document['size'],
-            //               colorList: document['color'],
-            //               price: document['price'],
-            //               salePrice: document['sale_price'],
-            //               brand: document['brand'],
-            //               madeIn: document['made_in'],
-            //               quantityMain: document['quantity'],
-            //               quantity: '',
-            //               description: document['description'],
-            //               rating: document['rating'],
-            //             );
-            //             Navigator.push(
-            //               context,
-            //               MaterialPageRoute(
-            //                 builder: (context) => DetailsScreen(
-            //                   product: product,
-            //                 ),
-            //               ),
-            //             );
-            //           },
-            //         );
-            //       }).toList(),
-            //     ),
-            //   ),
-            // );
-
-            return Expanded(
-              child: Padding(
-                padding: EdgeInsets.all(0),
-                child: StaggeredGridView.count(
-                  shrinkWrap: true,
-                  physics: ScrollPhysics(),
-                  scrollDirection: Axis.horizontal,
-                  crossAxisCount: 2,
-                  padding: const EdgeInsets.all(10),
-                  crossAxisSpacing: 4,
-                  mainAxisSpacing: 4,
-                  //childAspectRatio: 0.7,
-                  // staggeredTiles: [
-                  //   StaggeredTile.extent(1, 250),
-                  //   StaggeredTile.extent(1, 230),
-                  // ],
-
-                  staggeredTiles: generateTiles(snapshot.data.docs.length),
-                  children: snapshot.data.docs
-                      .map((DocumentSnapshot document) {
-                    return ItemCard(
-                      brand: document['brand'],
-                      productName: document['name'],
-                      image: document['image'][0],
-                      isSoldOut: (document['quantity'] == '0'),
-                      price: int.parse(document['price']),
-                      salePrice: (document['sale_price'] != '0')
-                          ? int.parse(document['sale_price'])
-                          : 0,
-                      onTap: ()  {
-                        Product product = new Product(
-                          id: document['id'],
-                          productName: document['name'],
-                          imageList: document['image'],
-                          category: document['categogy'],
-                          sizeList: document['size'],
-                          colorList: document['color'],
-                          price: document['price'],
-                          salePrice: document['sale_price'],
-                          brand: document['brand'],
-                          madeIn: document['made_in'],
-                          quantityMain: document['quantity'],
-                          quantity: '',
-                          description: document['description'],
-                          rating: document['rating'],
-                        );
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DetailsScreen(
-                              product: product,
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  }).toList(),
-                ),
-              ),
-            );
-          }
-        });
-  }
 
   List<StaggeredTile> generateTiles(int count) {
-    //Random rnd = new Random();
     List<StaggeredTile> _staggeredTiles = [];
     for (int i=0; i<count; i++) {
-      // num mainAxisCellCount = 0;
-      // double temp = rnd.nextDouble();
-      //double temp = 1;
-      // if (temp > 0.6) {
-      //   mainAxisCellCount = temp + 0.6;
-      // } else if (temp < 0.3) {
-      //   mainAxisCellCount = temp + 0.9;
-      // } else {
-      //   mainAxisCellCount = temp + 0.7;
-      // }
-      // _staggeredTiles.add(new StaggeredTile.count(rnd.nextInt(1) + 1, mainAxisCellCount));
-      //_staggeredTiles.add(new StaggeredTile.extent(1, 250));
       if(i%2==0) {
-        _staggeredTiles.add(new StaggeredTile.extent(1, 300));
+        _staggeredTiles.add(new StaggeredTile.extent(1, 280));
       }else{
-        _staggeredTiles.add(new StaggeredTile.extent(1, 260));
+        _staggeredTiles.add(new StaggeredTile.extent(1, 280));
       }
     }
     return _staggeredTiles;

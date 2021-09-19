@@ -48,14 +48,10 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
         ),
       ),
     ),
-    // TitledNavigationBarItem(
-    //   icon: Icons.shopping_cart_outlined,
-    //   title: Text('Cart'),
-    //),
     TitledNavigationBarItem(
-      icon: Icons.chat,
+      icon: Icons.shopping_cart,
       title: Text(
-        'Chat',
+        'Cart',
         style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16
@@ -65,7 +61,7 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
     TitledNavigationBarItem(
       icon: Icons.person_outline,
       title: Text(
-        'Profile',
+        'More',
         style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 16
@@ -78,15 +74,15 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
     //SearchView(),
 
     WishListView(),
-    //CartView(),
+    CartView(),
     /*SearchView(),
-    WishListView(),*/
-    ChatScreen(),
+    WishListView(),
+    ChatScreen(),*/
     ProfileView(),
 
 
   ];
-  final tabsTitle = ['Home', /*'Search',*/'Favorite' /*,'Wishlist'*/, 'Chat', 'Profile'];
+  final tabsTitle = ['Home', /*'Search',*/'Favorite', 'Chat' /*,'Wishlist', 'Chat'*/, 'Profile'];
   int indexScreen = 0;
   bool _isLogging;
   final pageController = PageController();
@@ -251,7 +247,6 @@ class _CustomerHomeViewState extends State<CustomerHomeView> {
             //pageController.jumpToPage(index);
             indexScreen = index;
           });*/
-
         },
         currentIndex: indexScreen,
         //currentIndex: 2,

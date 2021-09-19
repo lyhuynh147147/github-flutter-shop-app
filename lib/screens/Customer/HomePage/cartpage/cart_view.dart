@@ -12,6 +12,7 @@ import 'package:phone_verification/helpers/shared_preferrence.dart';
 import 'package:phone_verification/helpers/utils.dart';
 import 'package:phone_verification/link.dart';
 import 'package:phone_verification/model/product.dart';
+import 'package:phone_verification/screens/Customer/HomePage/details/details_screen.dart';
 import 'package:phone_verification/widgets/button_raised.dart';
 import 'package:phone_verification/widgets/card_cart_product.dart';
 import 'checkout_view.dart';
@@ -34,6 +35,7 @@ class _CartViewState extends State<CartView> {
     super.dispose();
     _productController.close();
   }
+
 
   //TODO: Delete product
   void onDelete(String productID) {
@@ -106,10 +108,48 @@ class _CartViewState extends State<CartView> {
     }
   }
 
+
+  void onTaps() {
+    // FirebaseFirestore.instance
+    //     .collection('Products')
+    //     .orderBy('create_at',descending: true)
+    //     .get().then((value) {
+    //
+    //   Product products = new Product(
+    //     id: value.docs['id'],
+    //     productName: value.data()['name'],
+    //     imageList: value.data()['image'],
+    //     category: value.data()['categogy'],
+    //     sizeList: value.data()['size'],
+    //     colorList: value.data()['color'],
+    //     price: value.data()['price'],
+    //     salePrice: value.data()['sale_price'],
+    //     brand: value.data()['brand'],
+    //     madeIn: value.data()['made_in'],
+    //     quantityMain: value.data()['quantity'],
+    //     quantity: '',
+    //     description: value.data()['description'],
+    //     rating: value.data()['rating'],
+    //   );
+    //
+    //   Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //       builder: (context) => DetailsScreen(
+    //         product: products,
+    //       ),
+    //     ),
+    //   );
+    // });
+
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+
     StorageUtil.getUid().then((uid) {
       _streamController.add(uid);
       uidUser = uid;
@@ -136,6 +176,8 @@ class _CartViewState extends State<CartView> {
             brand: value.data()['brand'],
             madeIn: value.data()['made_in'],
             quantity: value.data()['quantity'],
+
+
           );
           productInfoList.add(product);
           getQuantity();
@@ -164,6 +206,11 @@ class _CartViewState extends State<CartView> {
             onClose: () {
               onDelete(product.id);
             },
+            onTap: () {
+              onTaps();
+
+            },
+
           );
         }).toList();
         //TODO: update Item count
@@ -174,6 +221,8 @@ class _CartViewState extends State<CartView> {
         _productController.sink.add(true);
       });
     });
+
+
   }
 
   @override
@@ -181,19 +230,6 @@ class _CartViewState extends State<CartView> {
     double _w = MediaQuery.of(context).size.width;
     //ConstScreen.setScreen(context);
     return Scaffold(
-      /*appBar: AppBar(
-        iconTheme: IconThemeData.fallback(),
-        backgroundColor: kColorWhite,
-        // TODO: Quantity Items
-        title: Text(
-          'Giỏ hàng:  ' + uiProductList.length.toString() + ' item'  ,
-          style: TextStyle(
-              color: kColorBlack,
-              fontSize: 16,
-              fontWeight: FontWeight.w500),
-        ),
-        centerTitle: true,
-      ),*/
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, kToolbarHeight),
         child: ClipRRect(
@@ -217,7 +253,7 @@ class _CartViewState extends State<CartView> {
               title: Text(
                 'Giỏ hàng:  ' + uiProductList.length.toString() + ' Sản phẩm'  ,
                 style: TextStyle(
-                  fontSize: _w / 17,
+                  fontSize: 20,
                   //color: Colors.white.withOpacity(.7),
                   color: Colors.black.withOpacity(.7),
                   fontWeight: FontWeight.w400,
@@ -317,13 +353,13 @@ class _CartViewState extends State<CartView> {
             top: BorderSide(color: kColorBlack.withOpacity(0.5), width: 1),
           ),
         ),
-        height: 100,
+        height: 120,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             // TODO: Total price
             Expanded(
-              flex: 1,
+              flex: 2,
               child: Padding(
                 padding: EdgeInsets.symmetric(
                     vertical: 2,
@@ -345,6 +381,7 @@ class _CartViewState extends State<CartView> {
                         ),
                       ),
                       // TODO: Total Price Value
+
                       Expanded(
                         flex: 5,
                         child: AutoSizeText(
@@ -364,7 +401,7 @@ class _CartViewState extends State<CartView> {
             ),
             //TODO: Purchase button
             Expanded(
-              flex: 1,
+              flex: 2,
               child: CusRaisedButton(
                 title: 'PLACE THIS ORDER',
                 backgroundColor: kColorBlack,

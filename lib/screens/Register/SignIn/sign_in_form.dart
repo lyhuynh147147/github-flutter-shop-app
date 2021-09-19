@@ -56,53 +56,6 @@ class _SignInViewState extends State<SignInView> {
             },
           ),
         ),
-        //TODO: Button Sign In
-        // SizedBox(
-        //   height: 10,
-        // ),
-        // Row(
-        //   mainAxisAlignment: MainAxisAlignment.end,
-        //   children: <Widget>[
-        //     //TODO: Admin
-        //     Container(
-        //       height: 25,
-        //       child: MaterialButton(
-        //         height: 25,
-        //         color: _isAdmin ? kColorBlack : kColorWhite,
-        //         child: Text(
-        //           'MANAGER',
-        //           style: TextStyle(
-        //               color: _isAdmin ? kColorWhite : kColorBlack,
-        //               fontSize: 15),
-        //         ),
-        //         onPressed: () {
-        //           setState(() {
-        //             _isAdmin = true;
-        //           });
-        //         },
-        //       ),
-        //     ),
-        //     //TODO: Customer
-        //     Container(
-        //       height: 25,
-        //       child: MaterialButton(
-        //         height: 45,
-        //         color: _isAdmin ? kColorWhite : kColorBlack,
-        //         child: Text(
-        //           'CUSTOMER',
-        //           style: TextStyle(
-        //               color: _isAdmin ? kColorBlack : kColorWhite,
-        //               fontSize: 15),
-        //         ),
-        //         onPressed: () {
-        //           setState(() {
-        //             _isAdmin = false;
-        //           });
-        //         },
-        //       ),
-        //     ),
-        //   ],
-        // ),
         SizedBox(
           height: 20,
         ),
@@ -112,6 +65,7 @@ class _SignInViewState extends State<SignInView> {
               return RoundedButton(
                 backgroundColor: Colors.white.withOpacity(.05),
                 title: 'SIGN IN',
+                height: 50,
                 isDisablePress: snapshot.hasData ? snapshot.data : true,
                 onPress: () async {
                   FocusScopeNode currentFocus = FocusScope.of(context);

@@ -3,7 +3,6 @@ import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:phone_verification/helpers/TextStyle.dart';
 import 'package:phone_verification/helpers/colors_constant.dart';
 import 'package:phone_verification/helpers/constants.dart';
@@ -353,58 +352,6 @@ class _ColorAndSizeState extends State<ColorAndSize>
                 ),
               ),
             ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //   children: [
-            //     Container(
-            //       child: Row(
-            //         children: [
-            //           IconButton(
-            //             color: kColorBlack,
-            //             iconSize: 25,
-            //             onPressed: () {
-            //               Navigator.pop(context);
-            //             },
-            //             icon: Icon(
-            //               Icons.arrow_back_ios,
-            //               size: 25,
-            //             ),
-            //           ),
-            //           Text(
-            //             'Back' ,
-            //             style: TextStyle(
-            //                 color: kColorBlack,
-            //                 fontSize: 16,
-            //                 fontWeight: FontWeight.w500),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //     IconButton(
-            //       icon: Icon(
-            //         Icons.shopping_cart_outlined,
-            //         color: Colors.black87,
-            //         size: 30,
-            //       ),
-            //       onPressed: () {
-            //         /* Navigator.of(context).pushReplacement(
-            //     MaterialPageRoute(
-            //         builder: (ctx) => CartScreen()));*/
-            //         if (_isLogging) {
-            //           /*setState(() {
-            //             _isAddBtnPress = false;
-            //           });*/
-            //           Navigator.pushNamed(context, 'customer_cart_page');
-            //
-            //           //TODO: Add product
-            //         } else {
-            //           Navigator.pushNamed(context, 'phone_in');
-            //         }
-            //         //Navigator.pushNamed(context, 'customer_cart_page');
-            //       },
-            //     ),
-            //   ],
-            // ),
             Container(
               decoration: BoxDecoration(
                 color: Colors.white,

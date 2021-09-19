@@ -38,7 +38,6 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
   Animation<double> animation3;
   Animation<double> animation4;
 
-
   final _formKey = GlobalKey<FormState>();
   final _formKeyOTP = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -48,15 +47,11 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
   final TextEditingController passwordController = new TextEditingController();
   final TextEditingController otpController = new TextEditingController();
 
-  //final TextEditingController otpC = new TextEditingController();
-
   var isLoading = false;
   var isResend = false;
   var isLoginScreen = true;
   var isOTPScreen = false;
   var verificationCode = '';
-
-
   bool isShowPassword = false;
 
   //Form controllers
@@ -122,16 +117,7 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
     controller2.forward();
 
     ///
-
     isShowPassword = true;
-    // if (_auth.currentUser != null) {
-    //   Navigator.pushAndRemoveUntil(
-    //     context,
-    //     MaterialPageRoute(
-    //       builder: (BuildContext context) => LoggedInScreen(),
-    //     ), (route) => false,
-    //   );
-    // }
 
     if (_auth.currentUser != null) {
         Navigator.pushAndRemoveUntil(
@@ -258,14 +244,12 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
                     Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                             builder: (ctx) => WelcomeScreen()));
-                    //Navigator.of(context).pop();
                   },
                 ),
                 title: Text(
                   'Đăng Nhập',
                   style: TextStyle(
                     fontSize: _width / 17,
-                    //color: Colors.white.withOpacity(.7),
                     color: Colors.black.withOpacity(.7),
                     fontWeight: FontWeight.w400,
                   ),
@@ -280,17 +264,6 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
                       Icons.settings,
                       color: Colors.white.withOpacity(.02),
                     ),
-                    /*onPressed: () {
-                    HapticFeedback.lightImpact();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return RouteWhereYouGo2();
-                        },
-                      ),
-                    );
-                  },*/
                     onPressed: () {
                       Navigator.pushNamed(context, 'register_screen');
                     },
@@ -376,16 +349,11 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
                                   Expanded(
                                     flex: 4,
                                     child: TextFormField(
-                                      //autofocus: true,
-                                      //maxLength: null,
-                                      //cursorColor: Colors.amber,
                                       style: kBodyText.copyWith(color: Colors.black),
                                       textInputAction: TextInputAction.next,
                                       controller: countryController,
                                       enabled: !isLoading,
                                       decoration: InputDecoration(
-                                        //contentPadding: EdgeInsets.fromLTRB(0, 0, 5, 5),
-                                        // floatingLabelBehavior: FloatingLabelBehavior.never,
                                         hintText: 'Mã vùng',
                                         labelStyle: TextStyle(fontSize: 20),
                                         counterText: ' ',
@@ -405,7 +373,6 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
                                     child: TextInputFormField(
                                       isPassword: false,
                                       maxLength: 10,
-                                      //icon: Icons.phone_android_sharp,
                                       hint: 'Số điện thoại',
                                       inputAction: TextInputAction.next,
                                       inputType: TextInputType.phone,
@@ -419,9 +386,7 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
                                       },
                                     ),
                                   ),
-                                  // SizedBox(
-                                  //   width: 10,
-                                  // ),
+
                                 ],
                               ),
                               /**/
@@ -499,83 +464,8 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
                                             ),
                                           ),
                                         ),
-                                        // child: Container(
-                                        //     decoration: BoxDecoration(
-                                        //       color: Colors.grey,
-                                        //       borderRadius: BorderRadius.circular(15),
-                                        //       border: Border.all(color: Colors.black),
-                                        //     ),
-                                        //     padding: const EdgeInsets.symmetric(
-                                        //       vertical: 15.0,
-                                        //       horizontal: 15.0,
-                                        //     ),
-                                        //     child: new Row(
-                                        //       mainAxisAlignment:
-                                        //       MainAxisAlignment.center,
-                                        //       children: <Widget>[
-                                        //         Expanded(
-                                        //             child: Text(
-                                        //               "Sign In",
-                                        //               textAlign: TextAlign.center,
-                                        //             )),
-                                        //       ],
-                                        //     )),
                                       ) : CircularProgressIndicator())),
                               ///
-                              // Container(
-                              //     margin: EdgeInsets.only(top: 15, bottom: 5),
-                              //     alignment: AlignmentDirectional.center,
-                              //     child: Padding(
-                              //         padding:
-                              //         const EdgeInsets.symmetric(horizontal: 10.0),
-                              //         child: Row(
-                              //           crossAxisAlignment: CrossAxisAlignment.center,
-                              //           mainAxisAlignment: MainAxisAlignment.center,
-                              //           children: [
-                              //             Padding(
-                              //                 padding: const EdgeInsets.symmetric(
-                              //                     horizontal: 10.0),
-                              //                 child: Text(
-                              //                   "No Account ?",
-                              //                   style: TextStyle(
-                              //                       color: Colors.white
-                              //                   ),
-                              //                 )),
-                              //             InkWell(
-                              //               child: Text(
-                              //                 'Sign up',
-                              //                 style: TextStyle(
-                              //                     color: Colors.white
-                              //                 ),
-                              //               ),
-                              //               onTap: () => {
-                              //                 Navigator.push(context,
-                              //                     MaterialPageRoute(builder: (context) => PhoneUp()))
-                              //                 //Navigator.pushNamed(context, 'register_screen')
-                              //               },
-                              //             ),
-                              //           ],
-                              //         ))),
-                              ///
-                              // Container(
-                              //   padding: EdgeInsets.only(top: 10, bottom: 5, right: 10),
-                              //   child: Row(
-                              //     mainAxisAlignment: MainAxisAlignment.end,
-                              //     children: [
-                              //       InkWell(
-                              //           child: Text(
-                              //             'Forgot your password ?',
-                              //             style: TextStyle(color: Colors.blue),
-                              //             textAlign: TextAlign.right,
-                              //           ),
-                              //           onTap: () => {
-                              //             Navigator.push(context, MaterialPageRoute(
-                              //                 builder: (context) => RegisterView()))
-                              //           }
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
                             ],
                           ),
                         )),
@@ -587,11 +477,7 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
                         children: [
                           component2(
                             'Create a new Account',
-                            2,
-                                () {
-                              //HapticFeedback.lightImpact();
-                              // Fluttertoast.showToast(
-                              //     msg: 'Create a new account button pressed');
+                            2, () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (context) => PhoneUp()));
                             },
@@ -611,6 +497,7 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
   }
 
   Widget returnOTPScreen() {
+    var pwdSha512 = Util.encodePassword(passwordController.text);
     double _height = MediaQuery.of(context).size.height;
     double _width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -632,9 +519,6 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
                     size: 30,
                   ),
                   onPressed: () {
-                    // Navigator.of(context).pushReplacement(
-                    //     MaterialPageRoute(
-                    //         builder: (ctx) => WelcomeScreen()));
                     Navigator.of(context).pop();
                   },
                 ),
@@ -703,18 +587,21 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
                             height: 30,
                           ),
                           Container(
-                              child: Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
-                                  child: Text(
-                                      !isLoading
-                                          ? "Mã xác minh sẽ được gửi qua tin nhắn SMS đến"
-                                          : "Mã xác minh đã được gữi qua SMS",
-                                      textAlign: TextAlign.center))),
+                            child: Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
+                                child: Text(
+                                  !isLoading
+                                      ? "Mã xác minh sẽ được gửi qua tin nhắn SMS đến"
+                                      : "Mã xác minh đã được gữi qua SMS",
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                          ),
                           ///
                           !isLoading
                               ? Container(
                             child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: const EdgeInsets.only(top: 10,bottom: 10),
                               child: otpField(),
                             ),)
                               : Container(),
@@ -748,6 +635,9 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
                                                 setState(() {
                                                   isLoading = false;
                                                   isResend = false;
+
+                                                              var phoneNumber = /*'+'*/ countryController.text.trim() + phoneController.text.trim();
+
                                                   Users userInfo = new Users(
                                                       '',
                                                       '',
@@ -760,11 +650,11 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
                                                       '',
                                                       'customer');
                                                   StorageUtil.setUid(_auth.currentUser.uid);
-                                                  //StorageUtil.setFullName(fullName);
+                                                  StorageUtil.setFullName(phoneNumber);
                                                   /*await*/ StorageUtil.setIsLogging(true);
                                                   StorageUtil.setUserInfo(userInfo);
                                                   StorageUtil.setAccountType('customer');
-                                                  //StorageUtil.setPassword(pwdSha512);
+                                                  StorageUtil.setPassword(pwdSha512);
                                                   //_isBtnLoadingController.sink.add(true);
                                                 }),
                                                 Navigator.pushAndRemoveUntil(
@@ -793,9 +683,6 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
                                       }
                                     },
                                     child: new Container(
-                                      // decoration: BoxDecoration(
-                                      //     color: Color(0xffff9601),
-                                      //     borderRadius: BorderRadius.circular(15)),
                                       decoration: BoxDecoration(
                                         color: Colors.grey.withOpacity(.05),
                                         borderRadius: BorderRadius.circular(15),
@@ -847,9 +734,6 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
                                       await login();
                                     },
                                     child: new Container(
-                                      // decoration: BoxDecoration(
-                                      //     color: Color(0xffff9601),
-                                      //     borderRadius: BorderRadius.circular(15)),
                                       decoration: BoxDecoration(
                                         color: Colors.grey.withOpacity(.05),
                                         borderRadius: BorderRadius.circular(15),
@@ -881,7 +765,8 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
               ),
             ),
           )
-      ),);
+      ),
+    );
   }
 
   displaySnackBar(text) {
@@ -896,10 +781,8 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
 
     var phoneNumber = /*'+'*/ countryController.text.trim() + phoneController.text.trim();
 
-    //first we will check if a user with this cell number exists
     var isValidUser = false;
     var number = phoneController.text.trim();
-    //var name = passwordController.text.trim();
 
     var pwdSha512 = Util.encodePassword(passwordController.text);
 
@@ -916,76 +799,16 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
       }
     });
     if (isValidUser) {
-      // setState(() {
-      //   isLoading = false;
-      //   isOTPScreen = false;
-      // });
-      // Navigator.pushAndRemoveUntil(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (BuildContext context) => LoggedInScreen(),
-      //   ),
-      //       (route) => false,
-      // );
-      //ok, we have a valid user, now lets do otp verification
       var verifyPhoneNumber = _auth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
         verificationCompleted: (phoneAuthCredential) {
-          //auto code complete (not manually)
           _auth.signInWithCredential(phoneAuthCredential).then((user) async => {
             if (user != null)
               {
-                //redirect
                 setState(() async {
                   isLoading = false;
                   isOTPScreen = false;
 
-                  // Users userInfo = new Users(
-                  //     '',
-                  //     '',
-                  //     '',
-                  //     '',
-                  //     '',
-                  //     '',
-                  //     '',
-                  //     ''/*createAt*/,
-                  //     '',
-                  //     'customer');
-                  // StorageUtil.setUid(_auth.currentUser.uid);
-                  // //StorageUtil.setFullName(fullName);
-                  // /*await*/ StorageUtil.setIsLogging(true);
-                  // StorageUtil.setUserInfo(userInfo);
-                  // StorageUtil.setAccountType('customer');
-                  // StorageUtil.setPassword(pwdSha512);
-                  // //_isBtnLoadingController.sink.add(true);
-
-
-                  // await FirebaseFirestore.instance
-                  //     .collection('Users')
-                  //     .doc(_auth.currentUser.uid)
-                  //     .get()
-                  //     .then((DocumentSnapshot snapshot) async {
-                  //   Users user = new Users(
-                  //       snapshot[0].data()['fullname'],
-                  //       snapshot[0].data()['username'],
-                  //       snapshot[0].data()['password'],
-                  //       snapshot[0].data()['gender'],
-                  //       snapshot[0].data()['birthday'],
-                  //       snapshot[0].data()['phone'],
-                  //       snapshot[0].data()['address'],
-                  //       snapshot[0].data()['create_at'],
-                  //       snapshot[0].data()['id_scripe'],
-                  //       snapshot[0].data()['type']);
-                  //   print(user.toJson());
-                  //   StorageUtil.setUid(_auth.currentUser.uid);
-                  //   //StorageUtil.setFullName(snapshot[0].data()['fullname']);
-                  //   /*await*/ StorageUtil.setIsLogging(true);
-                  //   StorageUtil.setUserInfo(user);
-                  //   StorageUtil.setAccountType('customer');
-                  //   //StorageUtil.setPassword(Util.encodePassword(pwdSha512));
-                  //   //_isBtnLoadingController.sink.add(true);
-                  //   //TODO: Navigator
-                  //});
                   Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
@@ -993,14 +816,6 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
                     ),
                         (route) => false,
                   );
-                  // Navigator.pushAndRemoveUntil(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (BuildContext context) =>
-                  //         LoggedInScreen(),
-                  //   ),
-                  //       (route) => false,
-                  // );
                   return true;
                 }),
 
@@ -1043,9 +858,9 @@ class _PhoneInState extends State<PhoneIn> with TickerProviderStateMixin{
     return OTPTextField(
       length: 6,
       width: MediaQuery.of(context).size.width - 34,
-      fieldWidth: 60,
+      fieldWidth: 51,
       otpFieldStyle: OtpFieldStyle(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         borderColor: Colors.black,
         focusBorderColor: Colors.black,
       ),

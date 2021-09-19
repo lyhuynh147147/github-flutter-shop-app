@@ -137,12 +137,6 @@ class _PhoneUpState extends State<PhoneUp>  with TickerProviderStateMixin{
     final node = FocusScope.of(context);
     return Scaffold(
       key: _scaffoldKey,
-      // appBar: new AppBar(
-      //   title: Text('Register new user'),
-      //   backgroundColor: kBackgroundColor,
-      //   elevation: 0,
-      // ),
-      //backgroundColor: kBackgroundColor,
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, kToolbarHeight),
         child: ClipRRect(
@@ -160,9 +154,6 @@ class _PhoneUpState extends State<PhoneUp>  with TickerProviderStateMixin{
                   size: 30,
                 ),
                 onPressed: () {
-                  // Navigator.of(context).pushReplacement(
-                  //     MaterialPageRoute(
-                  //         builder: (ctx) => WelcomeScreen()));
                   Navigator.of(context).pop();
                 },
               ),
@@ -170,7 +161,6 @@ class _PhoneUpState extends State<PhoneUp>  with TickerProviderStateMixin{
                 'Tạo tài khoản mới',
                 style: TextStyle(
                   fontSize: _width / 17,
-                  //color: Colors.white.withOpacity(.7),
                   color: Colors.black.withOpacity(.7),
                   fontWeight: FontWeight.w400,
                 ),
@@ -243,8 +233,6 @@ class _PhoneUpState extends State<PhoneUp>  with TickerProviderStateMixin{
                                         controller: countryController,
                                         enabled: !isLoading,
                                         decoration: InputDecoration(
-                                          //contentPadding: EdgeInsets.fromLTRB(0, 0, 5, 5),
-                                          // floatingLabelBehavior: FloatingLabelBehavior.never,
                                           hintText: 'Country',
                                           counterText: ' ',
                                           icon: Icon(
@@ -260,7 +248,6 @@ class _PhoneUpState extends State<PhoneUp>  with TickerProviderStateMixin{
                                     child: TextInputFormField(
                                       isPassword: false,
                                       maxLength: 10,
-                                      //icon: Icons.phone_android_sharp,
                                       hint: 'Số điện thoại',
                                       inputAction: TextInputAction.next,
                                       inputType: TextInputType.phone,
@@ -305,7 +292,6 @@ class _PhoneUpState extends State<PhoneUp>  with TickerProviderStateMixin{
                                             child: InkWell(
                                               highlightColor: Colors.transparent,
                                               splashColor: Colors.transparent,
-                                              //onTap: voidCallback,
                                               child: Container(
                                                 height: _width / 8,
                                                 width: _width ,
@@ -358,9 +344,6 @@ class _PhoneUpState extends State<PhoneUp>  with TickerProviderStateMixin{
                     size: 30,
                   ),
                   onPressed: () {
-                    // Navigator.of(context).pushReplacement(
-                    //     MaterialPageRoute(
-                    //         builder: (ctx) => WelcomeScreen()));
                     Navigator.of(context).pop();
                   },
                 ),
@@ -368,7 +351,6 @@ class _PhoneUpState extends State<PhoneUp>  with TickerProviderStateMixin{
                   'Tạo tài khoản mới',
                   style: TextStyle(
                     fontSize: _width / 17,
-                    //color: Colors.white.withOpacity(.7),
                     color: Colors.black.withOpacity(.7),
                     fontWeight: FontWeight.w400,
                   ),

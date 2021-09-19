@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:multi_image_picker/multi_image_picker.dart';
+
 import 'package:phone_verification/helpers/colors_constant.dart';
 import 'package:photo_view/photo_view.dart';
 

@@ -79,40 +79,64 @@ class MessageBubble extends StatelessWidget {
               ]
             : null,
         child: Column(
-          crossAxisAlignment:
-              isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
+            // Text(
+            //   sender,
+            //   style: TextStyle(
+            //       fontSize: 13,
+            //       fontWeight: FontWeight.bold,
+            //       color: isAdmin
+            //           ? Colors.redAccent.shade400
+            //           : Colors.lightBlue,
+            //   ),
+            // ),
+            (isMe)
+                ? Text(
               sender,
               style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.bold,
-                  color:
-                      isAdmin ? Colors.redAccent.shade400 : Colors.lightBlue),
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+                color: isAdmin
+                  ? Colors.redAccent.shade400
+                  : Colors.black,
+                ),
+              )
+                : Container(
+              padding: EdgeInsets.only(left: 30),
+              width: 35,
+              height: 35,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: AssetImage("assets/images/welcome_wall.jpg"),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
             (text != '')
                 ? Material(
-                    // borderRadius: isMe
-                    //     ? BorderRadius.only(
-                    //         topLeft: Radius.circular(30.0),
-                    //         bottomLeft: Radius.circular(30.0),
-                    //         bottomRight: Radius.circular(30.0))
-                    //     : BorderRadius.only(
-                    //         bottomLeft: Radius.circular(30.0),
-                    //         bottomRight: Radius.circular(30.0),
-                    //         topRight: Radius.circular(30.0),
-                    //       ),
-              borderRadius: BorderRadius.all(Radius.circular(30)),
-                    elevation: 5.0,
-                    color: isMe ? Colors.blueGrey : Colors.red,
-                    child: Padding(
+                    borderRadius: isMe
+                        ? BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      bottomLeft: Radius.circular(30.0),
+                      bottomRight: Radius.circular(30.0),)
+                        : BorderRadius.only(
+                      bottomLeft: Radius.circular(30.0),
+                      bottomRight: Radius.circular(30.0),
+                      topRight: Radius.circular(30.0),),
+
+                  //borderRadius: BorderRadius.all(Radius.circular(5),),
+                    elevation: 1.0,
+                    color: isMe ? Colors.grey.shade200 : Colors.pink.shade200,
+                    child:Padding(
                       padding: EdgeInsets.symmetric(
-                          vertical: 18,
-                          horizontal: 18),
+                        vertical: 18,
+                        horizontal: 18,),
                       child: Text(
                         text,
                         style: TextStyle(
-                          color: isMe ? Colors.white : kColorBlack,
+                          color: isMe ? Colors.black : kColorBlack,
                           fontSize: 18,
                         ),
                       ),
@@ -127,6 +151,35 @@ class MessageBubble extends StatelessWidget {
     );
   }
 
+
+  /*Material(
+                    // borderRadius: isMe
+                    //     ? BorderRadius.only(
+                    //         topLeft: Radius.circular(30.0),
+                    //         bottomLeft: Radius.circular(30.0),
+                    //         bottomRight: Radius.circular(30.0))
+                    //     : BorderRadius.only(
+                    //         bottomLeft: Radius.circular(30.0),
+                    //         bottomRight: Radius.circular(30.0),
+                    //         topRight: Radius.circular(30.0),
+                    //       ),
+
+                  borderRadius: BorderRadius.all(Radius.circular(20),),
+                    elevation: 1.0,
+                    color: isMe ? Colors.grey.shade200 : Colors.red,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: 18,
+                          horizontal: 18),
+                      child: Text(
+                        text,
+                        style: TextStyle(
+                          color: isMe ? Colors.black : kColorBlack,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  )*/
   //TODO: check delete time
   bool isDeleteMessage(int createAt) {
     int timeNow = DateTime.now().millisecondsSinceEpoch;

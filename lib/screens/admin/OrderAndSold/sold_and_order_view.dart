@@ -42,7 +42,7 @@ class _SoldAndOrderViewState extends State<SoldAndOrderView> {
       _controller.sink.add(true);
       _controller.close();
     });
-    StripeService.init();
+    //StripeService.init();
   }
 
   @override

@@ -23,7 +23,7 @@ class _WishListViewState extends State<WishListView>
     with AutomaticKeepAliveClientMixin {
   StreamController _uidStreamController = new StreamController();
   StreamController _dataStreamController = new StreamController();
-  List<ItemCard> listProduct = [];
+  List<ItemCards> listProduct = [];
   //List<ProductCard> listProduct = [];
   bool _isLogging = false;
   @override
@@ -113,7 +113,7 @@ class _WishListViewState extends State<WishListView>
               removeProduct(doc['id']);
             },
           ),*/
-              ItemCard(
+              ItemCards(
                 id: doc['id'],
                 brand: doc['brand'],
                 productName: doc['name'],
@@ -186,10 +186,11 @@ class _WishListViewState extends State<WishListView>
                   Navigator.of(context).pop();
                 },
               ),
+              centerTitle: true,
               title: Text(
                 'Favonte',
                 style: TextStyle(
-                  fontSize: _w / 17,
+                  fontSize: _w / 19,
                   //color: Colors.white.withOpacity(.7),
                   color: Colors.black.withOpacity(.7),
                   fontWeight: FontWeight.w400,
@@ -245,7 +246,7 @@ class _WishListViewState extends State<WishListView>
           builder: (context, snapshotMain) {
             if (snapshotMain.hasData) {
               return Padding(
-                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                 child: StreamBuilder(
                     stream: _dataStreamController.stream,
                     builder: (context, snapshot) {
@@ -254,17 +255,11 @@ class _WishListViewState extends State<WishListView>
                           return StaggeredGridView.countBuilder(
                             shrinkWrap: true,
                             physics: ScrollPhysics(),
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(0),
                             mainAxisSpacing: 4.0,
                             crossAxisSpacing: 4.0,
                             staggeredTileBuilder: (int index) =>
-                            new StaggeredTile.count(1, index.isEven ? 1.6: 1.4),
-                            // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            //   crossAxisCount: 2,
-                            //   childAspectRatio: 0.7,
-                            //   crossAxisSpacing: 3,
-                            //   mainAxisSpacing: 4,
-                            // ),
+                            new StaggeredTile.count(1, index.isEven ? 1.5: 1.5),
                             crossAxisCount: 2,
                             scrollDirection: Axis.vertical,
                             itemCount: listProduct.length,
@@ -316,6 +311,79 @@ class _WishListViewState extends State<WishListView>
             }
           }),
     );
+  }
+
+  /*Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.all(0),
+                        child: StaggeredGridView.count(
+                          shrinkWrap: true,
+                          physics: ScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          crossAxisCount: 2,
+                          padding: const EdgeInsets.all(10),
+                          crossAxisSpacing: 4,
+                          mainAxisSpacing: 4,
+                          //childAspectRatio: 0.7,
+                          // staggeredTiles: [
+                          //   StaggeredTile.extent(1, 250),
+                          //   StaggeredTile.extent(1, 230),
+                          // ],
+
+                          staggeredTiles: generateTiles(snapshot.data.docs.length),
+                          children: snapshot.data.docs
+                              .map((DocumentSnapshot document) {
+                            return ItemCards(
+                              brand: document['brand'],
+                              productName: document['name'],
+                              image: document['image'][0],
+                              isSoldOut: (document['quantity'] == '0'),
+                              price: int.parse(document['price']),
+                              salePrice: (document['sale_price'] != '0')
+                                  ? int.parse(document['sale_price'])
+                                  : 0,
+                              onTap: ()  {
+                                Product product = new Product(
+                                  id: document['id'],
+                                  productName: document['name'],
+                                  imageList: document['image'],
+                                  category: document['categogy'],
+                                  sizeList: document['size'],
+                                  colorList: document['color'],
+                                  price: document['price'],
+                                  salePrice: document['sale_price'],
+                                  brand: document['brand'],
+                                  madeIn: document['made_in'],
+                                  quantityMain: document['quantity'],
+                                  quantity: '',
+                                  description: document['description'],
+                                  rating: document['rating'],
+                                );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DetailsScreen(
+                                      product: product,
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    )*/
+
+  List<StaggeredTile> generateTiles(int count) {
+    List<StaggeredTile> _staggeredTiles = [];
+    for (int i=0; i<count; i++) {
+      if(i%2==0) {
+        _staggeredTiles.add(new StaggeredTile.extent(1, 320));
+      }else{
+        _staggeredTiles.add(new StaggeredTile.extent(1, 320));
+      }
+    }
+    return _staggeredTiles;
   }
 
   @override

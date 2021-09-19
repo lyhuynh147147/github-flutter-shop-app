@@ -106,6 +106,7 @@ class OrderCard extends StatelessWidget {
                 height: 5,
               ),
               //TODO:Customer's Name
+              admin == false ?
               AutoSizeText.rich(
                 TextSpan(
                   style: kBoldTextStyle.copyWith(
@@ -113,7 +114,25 @@ class OrderCard extends StatelessWidget {
                   ),
                   children: [
                     TextSpan(
-                      text: 'Customer: ',
+                      text: 'Khách hàng: ',
+                    ),
+                    TextSpan(
+                      text: customerName,
+                      style: kNormalTextStyle.copyWith(
+                        fontSize: 15,
+                      ),
+                    ),
+                  ],
+                ),
+              ):
+              AutoSizeText.rich(
+                TextSpan(
+                  style: kBoldTextStyle.copyWith(
+                    fontSize: 15,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: 'Tài khoản: ',
                     ),
                     TextSpan(
                       text: customerName,

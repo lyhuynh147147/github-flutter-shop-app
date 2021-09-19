@@ -211,19 +211,6 @@ class _RegisterViewsState extends State<RegisterViews> with TickerProviderStateM
                                       : SignUpView(
                                     typeAccount: 'customer',
                                   ),
-                                  // SizedBox(
-                                  //   height: 10,
-                                  // ),
-                                  // //TODO: Button Change SignIn <-> SignUp
-                                  // CusRaisedButton(
-                                  //   backgroundColor: Colors.grey.shade100,
-                                  //   title: _isSignIn ? 'REGISTER' : 'SIGN IN',
-                                  //   onPress: () {
-                                  //     setState(() {
-                                  //       _isSignIn = !_isSignIn;
-                                  //     });
-                                  //   },
-                                  // )
                                 ],
                               ),
                             ),

@@ -34,7 +34,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.grey,
       body: PageView(
         controller: pageController,
         onPageChanged: (index) {

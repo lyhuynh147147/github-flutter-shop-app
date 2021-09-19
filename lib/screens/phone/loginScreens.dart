@@ -10,12 +10,10 @@ import 'package:phone_verification/helpers/shared_preferrence.dart';
 import 'package:phone_verification/helpers/utils.dart';
 import 'package:phone_verification/model/user.dart';
 import 'package:phone_verification/screens/Register/phoneUp/phone_up.dart';
-import 'package:phone_verification/screens/admin/SignIn/login_admin.dart';
-import 'package:phone_verification/screens/admin/SignIn/register_view.dart';
-import 'package:phone_verification/screens/admin/SignIn/sign_in_form.dart';
 import 'package:phone_verification/screens/customer/customer_home_view.dart';
 import 'package:phone_verification/screens/phone/loggedInScreen.dart';
 import 'package:phone_verification/screens/phone/registerScreen.dart';
+import 'package:phone_verification/screens/phone/register_view.dart';
 import 'package:phone_verification/widgets/background_image.dart';
 import 'package:phone_verification/widgets/input_text.dart';
 import 'package:phone_verification/widgets/pallete.dart';
@@ -270,10 +268,10 @@ class _LoginScreensState extends State<LoginScreens> with TickerProviderStateMix
                                       style: TextStyle(color: Colors.blue),
                                       textAlign: TextAlign.right,
                                     ),
-                                    onTap: () => {
-                                      Navigator.push(context, MaterialPageRoute(
-                                              builder: (context) => LoginAdmin()))
-                                    }
+                                    // onTap: () => {
+                                    //   Navigator.push(context, MaterialPageRoute(
+                                    //           builder: (context) => LoginAdmin()))
+                                    // }
                                   ),
                                 ],
                               ),

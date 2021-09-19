@@ -1,11 +1,11 @@
-import 'dart:async';
+
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_credit_card/credit_card_widget.dart';
-import 'package:flutter_google_places/flutter_google_places.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_maps_webservice/places.dart';
 import 'package:phone_verification/helpers/TextStyle.dart';
@@ -19,7 +19,8 @@ import 'package:phone_verification/services/stripe_payment.dart';
 import 'package:phone_verification/widgets/button_raised.dart';
 import 'package:phone_verification/widgets/card_product_order.dart';
 import 'package:phone_verification/widgets/category_item.dart';
-import 'package:phone_verification/widgets/input_text.dart';import 'package:progress_dialog/progress_dialog.dart';
+import 'package:phone_verification/widgets/input_text.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:stripe_payment/stripe_payment.dart';
 
 import 'checkout_controller.dart';
@@ -54,7 +55,7 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    StripeService.init();
+    //StripeService.init();
   }
 
   @override
@@ -158,46 +159,46 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                           height: 10,
                         ),
                         // TODO: get Address
-//                        GestureDetector(
-//                          onTap: () async {
-//                            Prediction p = await PlacesAutocomplete.show(
-//                                context: context,
-//                                apiKey:
-//                                    'AIzaSyAAsiJbTpLEeB2dEPVTVWDF5HjyU2lbwAo', // Mode.fullscreen
-//                                mode: Mode.fullscreen,
-//                                language: "vn",
-//                                components: [
-//                                  new Component(Component.country, "vn")
-//                                ]);
-//                            if (p.description != null) {
-//                              setState(() {
-//                                _address = p.description;
-//                              });
-//                            }
-//                          },
-//                          child: Container(
-//                            width: double.infinity,
-//                            decoration: BoxDecoration(
-//                              border: Border.all(
-//                                  color: kColorBlack.withOpacity(0.3)),
-//                            ),
-//                            child: Padding(
-//                              padding: EdgeInsets.only(
-//                                  top: ConstScreen.setSizeHeight(20),
-//                                  bottom: ConstScreen.setSizeHeight(20),
-//                                  left: ConstScreen.setSizeHeight(20),
-//                                  right: ConstScreen.setSizeHeight(20)),
-//                              child: AutoSizeText('Address: ' + _address,
-//                                  textAlign: TextAlign.start,
-//                                  maxLines: 2,
-//                                  minFontSize: 15,
-//                                  style: TextStyle(
-//                                      fontSize: FontSize.setTextSize(30),
-//                                      color: kColorBlack,
-//                                      fontWeight: FontWeight.normal)),
-//                            ),
-//                          ),
-//                        ),
+                       // GestureDetector(
+                       //   onTap: () async {
+                       //     Prediction p = await PlacesAutocomplete.show(
+                       //         context: context,
+                       //         apiKey:
+                       //             'AIzaSyAAsiJbTpLEeB2dEPVTVWDF5HjyU2lbwAo', // Mode.fullscreen
+                       //         mode: Mode.fullscreen,
+                       //         language: "vn",
+                       //         components: [
+                       //           new Component(Component.country, "vn")
+                       //         ]);
+                       //     if (p.description != null) {
+                       //       setState(() {
+                       //         _address = p.description;
+                       //       });
+                       //     }
+                       //   },
+                       //   child: Container(
+                       //     width: double.infinity,
+                       //     decoration: BoxDecoration(
+                       //       border: Border.all(
+                       //           color: kColorBlack.withOpacity(0.3)),
+                       //     ),
+                       //     child: Padding(
+                       //       padding: EdgeInsets.only(
+                       //           top: 10,
+                       //           bottom: 10,
+                       //           left: 10,
+                       //           right: 10),
+                       //       child: AutoSizeText('Address: ' + _address,
+                       //           textAlign: TextAlign.start,
+                       //           maxLines: 2,
+                       //           minFontSize: 15,
+                       //           style: TextStyle(
+                       //               fontSize: 15,
+                       //               color: kColorBlack,
+                       //               fontWeight: FontWeight.normal)),
+                       //     ),
+                       //   ),
+                       // ),
                         //TODO: Error address check
                         StreamBuilder(
                           stream: _checkoutController.addressStream,
@@ -463,161 +464,161 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
                         SizedBox(
                           height: 10,
                         ),
-                        //TODO: Sub total
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              flex: 3,
-                              child: AutoSizeText(
-                                'Subtotal',
-                                textAlign: TextAlign.start,
-                                maxLines: 2,
-                                minFontSize: 15,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: kColorBlack,
-                                  fontWeight: FontWeight.w500,),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 4,
-                              child: AutoSizeText(
-                                Util.intToMoneyType(widget.total) + ' VND',
-                                textAlign: TextAlign.end,
-                                maxLines: 2,
-                                minFontSize: 15,
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: kColorBlack,
-                                  fontWeight: FontWeight.w500,),
-                              ),
-                            ),
-                          ],
-                        ),
-                        //TODO: Shipping
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              flex: 3,
-                              child: AutoSizeText(
-                                'Shipping',
-                                textAlign: TextAlign.start,
-                                maxLines: 2,
-                                minFontSize: 15,
-                                style: TextStyle(
-                                  fontSize: 13,
-                                  color: kColorBlack,
-                                  fontWeight: FontWeight.w500,),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 4,
-                              child: AutoSizeText(
-                                (widget.total > 300000) ? '+0 VND' : '+20,000 VND',
-                                textAlign: TextAlign.end,
-                                maxLines: 2,
-                                minFontSize: 15,
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: kColorBlack,
-                                  fontWeight: FontWeight.w500,),
-                              ),
-                            ),
-                          ],
-                        ),
-                        //TODO: coupon
-                        (coupon.discount != null && coupon.discount != '')
-                            ? Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    flex: 3,
-                                    child: AutoSizeText(
-                                      'Discount',
-                                      textAlign: TextAlign.start,
-                                      maxLines: 2,
-                                      minFontSize: 15,
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        color: kColorBlack,
-                                        fontWeight: FontWeight.w500,),
-                                    ),
-                                  ),
-                                  Expanded(
-                                    flex: 4,
-                                    child: AutoSizeText(
-                                      coupon.discount + '%\n-${Util.intToMoneyType(discountPrice.toInt())} VND',
-                                      textAlign: TextAlign.end,
-                                      maxLines: 2,
-                                      minFontSize: 15,
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        color: kColorBlack,
-                                        fontWeight: FontWeight.w500,),
-                                    ),
-                                  ),
-                                ],
-                              )
-                            : Container(),
-
-                        //TODO: TOTAL
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              flex: 3,
-                              child: AutoSizeText(
-                                'TOTAL',
-                                textAlign: TextAlign.start,
-                                maxLines: 2,
-                                minFontSize: 15,
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  color: kColorBlack,
-                                  fontWeight: FontWeight.w500,),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 4,
-                              child: AutoSizeText(
-                                Util.intToMoneyType((widget.total > 300000)
-                                        ? widget.total - discountPrice.floor()
-                                        : widget.total + 20000 - discountPrice.floor()) + ' VND',
-                                textAlign: TextAlign.end,
-                                maxLines: 2,
-                                minFontSize: 15,
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: kColorBlack,
-                                  fontWeight: FontWeight.w500,),
-                              ),
-                            ),
-                          ],
-                        ),
-                        //TODO: Error quantity check
-                        StreamBuilder(
-                          stream: _checkoutController.quantityStream,
-                          builder: (context, snapshot) {
-                            return Align(
-                              alignment: Alignment.topLeft,
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                  top: 5,
-                                  left: 11,
-                                ),
-                                child: AutoSizeText(
-                                    snapshot.hasError ? snapshot.error : '',
-                                    textAlign: TextAlign.start,
-                                    maxLines: 20,
-                                    minFontSize: 12,
-                                    style: TextStyle(
-                                      fontSize: 10,
-                                      color: snapshot.hasError
-                                          ? kColorRed
-                                          : kColorBlack,
-                                      fontWeight: FontWeight.normal,),),
-                              ),
-                            );
-                          },
-                        )
+                        // //TODO: Sub total
+                        // Row(
+                        //   children: <Widget>[
+                        //     Expanded(
+                        //       flex: 3,
+                        //       child: AutoSizeText(
+                        //         'Subtotal',
+                        //         textAlign: TextAlign.start,
+                        //         maxLines: 2,
+                        //         minFontSize: 15,
+                        //         style: TextStyle(
+                        //           fontSize: 13,
+                        //           color: kColorBlack,
+                        //           fontWeight: FontWeight.w500,),
+                        //       ),
+                        //     ),
+                        //     Expanded(
+                        //       flex: 4,
+                        //       child: AutoSizeText(
+                        //         Util.intToMoneyType(widget.total) + ' VND',
+                        //         textAlign: TextAlign.end,
+                        //         maxLines: 2,
+                        //         minFontSize: 15,
+                        //         style: TextStyle(
+                        //           fontSize: 15,
+                        //           color: kColorBlack,
+                        //           fontWeight: FontWeight.w500,),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                        // //TODO: Shipping
+                        // Row(
+                        //   children: <Widget>[
+                        //     Expanded(
+                        //       flex: 3,
+                        //       child: AutoSizeText(
+                        //         'Shipping',
+                        //         textAlign: TextAlign.start,
+                        //         maxLines: 2,
+                        //         minFontSize: 15,
+                        //         style: TextStyle(
+                        //           fontSize: 13,
+                        //           color: kColorBlack,
+                        //           fontWeight: FontWeight.w500,),
+                        //       ),
+                        //     ),
+                        //     Expanded(
+                        //       flex: 4,
+                        //       child: AutoSizeText(
+                        //         (widget.total > 300000) ? '+0 VND' : '+20,000 VND',
+                        //         textAlign: TextAlign.end,
+                        //         maxLines: 2,
+                        //         minFontSize: 15,
+                        //         style: TextStyle(
+                        //           fontSize: 15,
+                        //           color: kColorBlack,
+                        //           fontWeight: FontWeight.w500,),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                        // //TODO: coupon
+                        // (coupon.discount != null && coupon.discount != '')
+                        //     ? Row(
+                        //         children: <Widget>[
+                        //           Expanded(
+                        //             flex: 3,
+                        //             child: AutoSizeText(
+                        //               'Discount',
+                        //               textAlign: TextAlign.start,
+                        //               maxLines: 2,
+                        //               minFontSize: 15,
+                        //               style: TextStyle(
+                        //                 fontSize: 13,
+                        //                 color: kColorBlack,
+                        //                 fontWeight: FontWeight.w500,),
+                        //             ),
+                        //           ),
+                        //           Expanded(
+                        //             flex: 4,
+                        //             child: AutoSizeText(
+                        //               coupon.discount + '%\n-${Util.intToMoneyType(discountPrice.toInt())} VND',
+                        //               textAlign: TextAlign.end,
+                        //               maxLines: 2,
+                        //               minFontSize: 15,
+                        //               style: TextStyle(
+                        //                 fontSize: 15,
+                        //                 color: kColorBlack,
+                        //                 fontWeight: FontWeight.w500,),
+                        //             ),
+                        //           ),
+                        //         ],
+                        //       )
+                        //     : Container(),
+                        //
+                        // //TODO: TOTAL
+                        // Row(
+                        //   children: <Widget>[
+                        //     Expanded(
+                        //       flex: 3,
+                        //       child: AutoSizeText(
+                        //         'TOTAL',
+                        //         textAlign: TextAlign.start,
+                        //         maxLines: 2,
+                        //         minFontSize: 15,
+                        //         style: TextStyle(
+                        //           fontSize: 15,
+                        //           color: kColorBlack,
+                        //           fontWeight: FontWeight.w500,),
+                        //       ),
+                        //     ),
+                        //     Expanded(
+                        //       flex: 4,
+                        //       child: AutoSizeText(
+                        //         Util.intToMoneyType((widget.total > 300000)
+                        //                 ? widget.total - discountPrice.floor()
+                        //                 : widget.total + 20000 - discountPrice.floor()) + ' VND',
+                        //         textAlign: TextAlign.end,
+                        //         maxLines: 2,
+                        //         minFontSize: 15,
+                        //         style: TextStyle(
+                        //           fontSize: 17,
+                        //           color: kColorBlack,
+                        //           fontWeight: FontWeight.w500,),
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
+                        // //TODO: Error quantity check
+                        // StreamBuilder(
+                        //   stream: _checkoutController.quantityStream,
+                        //   builder: (context, snapshot) {
+                        //     return Align(
+                        //       alignment: Alignment.topLeft,
+                        //       child: Padding(
+                        //         padding: EdgeInsets.only(
+                        //           top: 5,
+                        //           left: 11,
+                        //         ),
+                        //         child: AutoSizeText(
+                        //             snapshot.hasError ? snapshot.error : '',
+                        //             textAlign: TextAlign.start,
+                        //             maxLines: 20,
+                        //             minFontSize: 12,
+                        //             style: TextStyle(
+                        //               fontSize: 10,
+                        //               color: snapshot.hasError
+                        //                   ? kColorRed
+                        //                   : kColorBlack,
+                        //               fontWeight: FontWeight.normal,),),
+                        //       ),
+                        //     );
+                        //   },
+                        // )
                       ],
                     ),
                   ),
@@ -628,289 +629,473 @@ class _ProcessingOrderViewState extends State<ProcessingOrderView> {
         ),
       ),
       bottomNavigationBar: Container(
-        child: StreamBuilder(
-            stream: _checkoutController.btnLoadingStream,
-            builder: (context, snapshot) {
-              return CusRaisedButton(
-                title: 'PAYMENT',
-                isDisablePress: snapshot.hasData ? snapshot.data : true,
-                height: 75,
-                backgroundColor: Colors.orangeAccent.shade700,
-                onPress: () async {
-                  bool isValidate = await _checkoutController.onValidate(
-                    name: _receiverName,
-                    phoneNumber: _phoneNumber,
-                    address: _address,
-                    productList: widget.productList,
-                    total: widget.total.toString(),
-                  );
-                  if (isValidate) {
-                    showModalBottomSheet(context: context, builder: (context) {
-                          return Card(
-                            child: Padding(
-                              padding: EdgeInsets.only(top: 15, bottom: 10, left: 20, right: 20),
-                              child: Column(
-                                children: <Widget>[
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Row(
+        decoration: BoxDecoration(
+          //borderRadius: BorderRadius.circular(2),
+          // borderRadius: BorderRadius.only(
+          //   topLeft: Radius.circular(5.0),
+          //   topRight: Radius.circular(5.0),
+          // ),
+          border: Border(
+            top: BorderSide(
+              color: kColorBlack.withOpacity(0.5),
+                width: 3,
+            ),
+          ),
+
+        ),
+        height: 260,
+
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              flex: 15,
+              child: Container(
+                padding: const EdgeInsets.only(top: 16,bottom: 10,left: 16,right: 16),
+                color: Colors.transparent,
+                child: Column(
+                    children: [
+                      Expanded(
+                        flex: 10,
+                        child: Column(
+                          children: [
+                            //TODO: Sub total
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  flex: 3,
+                                  child: AutoSizeText(
+                                    'Subtotal:',
+                                    textAlign: TextAlign.start,
+                                    maxLines: 2,
+                                    minFontSize: 15,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: kColorBlack.withOpacity(0.5),
+                                      fontWeight: FontWeight.w500,),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 4,
+                                  child: AutoSizeText(
+                                    Util.intToMoneyType(widget.total) + ' VND',
+                                    textAlign: TextAlign.end,
+                                    maxLines: 2,
+                                    minFontSize: 15,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: kColorBlack,
+                                      fontWeight: FontWeight.w500,),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            //TODO: Shipping
+                            Row(
+                              children: <Widget>[
+                                Expanded(
+                                  flex: 3,
+                                  child: AutoSizeText(
+                                    'Shipping:',
+                                    textAlign: TextAlign.start,
+                                    maxLines: 2,
+                                    minFontSize: 15,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: kColorBlack.withOpacity(0.5),
+                                      fontWeight: FontWeight.bold,),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 4,
+                                  child: AutoSizeText(
+                                    (widget.total > 300000) ? '+0 VND' : '+20,000 VND',
+                                    textAlign: TextAlign.end,
+                                    maxLines: 2,
+                                    minFontSize: 15,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: kColorBlack,
+                                      fontWeight: FontWeight.bold,),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 5,
+                            ),
+                            //TODO: coupon
+                            (coupon.discount != null && coupon.discount != '')
+                                ? Row(
+                              children: <Widget>[
+                                Expanded(
+                                  flex: 3,
+                                  child: AutoSizeText(
+                                    'Discount:',
+                                    textAlign: TextAlign.start,
+                                    maxLines: 2,
+                                    minFontSize: 15,
+                                    style: TextStyle(
+                                      fontSize: 15,
+                                      color: kColorBlack.withOpacity(0.5),
+                                      fontWeight: FontWeight.bold,),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 4,
+                                  child: AutoSizeText(
+                                    coupon.discount + '%\n-${Util.intToMoneyType(discountPrice.toInt())} VND',
+                                    textAlign: TextAlign.end,
+                                    maxLines: 2,
+                                    minFontSize: 15,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: kColorBlack,
+                                      fontWeight: FontWeight.bold,),
+                                  ),
+                                ),
+                              ],
+                            )
+                                : Container(),
+
+                          ],
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.grey,
+                        thickness: 2,
+                      ),
+                      //TODO: TOTAL
+                      Expanded(
+                        flex: 4,
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              flex: 3,
+                              child: AutoSizeText(
+                                'TOTAL:',
+                                textAlign: TextAlign.start,
+                                maxLines: 2,
+                                minFontSize: 15,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: kColorBlack.withOpacity(0.5),
+                                  fontWeight: FontWeight.bold,),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 4,
+                              child: AutoSizeText(
+                                Util.intToMoneyType((widget.total > 300000)
+                                    ? widget.total - discountPrice.floor()
+                                    : widget.total + 20000 - discountPrice.floor()) + ' VND',
+                                textAlign: TextAlign.end,
+                                maxLines: 2,
+                                minFontSize: 15,
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: kColorBlack,
+                                  fontWeight: FontWeight.bold,),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+              ),
+            ),
+            Expanded(
+              flex: 5,
+              child: StreamBuilder(
+                  stream: _checkoutController.btnLoadingStream,
+                  builder: (context, snapshot) {
+                    return CusRaisedButton(
+                      title: 'PAYMENT',
+                      isDisablePress: snapshot.hasData ? snapshot.data : true,
+                      height: 75,
+                      backgroundColor: Colors.orangeAccent.shade700,
+                      onPress: () async {
+                        bool isValidate = await _checkoutController.onValidate(
+                          name: _receiverName,
+                          phoneNumber: _phoneNumber,
+                          address: _address,
+                          productList: widget.productList,
+                          total: widget.total.toString(),
+                        );
+                        if (isValidate) {
+                          showModalBottomSheet(context: context, builder: (context) {
+                                return Card(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 15, bottom: 10, left: 20, right: 20),
+                                    child: Column(
                                       children: <Widget>[
-                                        Icon(
-                                          Icons.payment,
-                                          size: 20,
+                                        Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Row(
+                                            children: <Widget>[
+                                              Icon(
+                                                Icons.payment,
+                                                size: 20,
+                                              ),
+                                              SizedBox(
+                                                width: 2,
+                                              ),
+                                              AutoSizeText(
+                                                'PAYMENT:',
+                                                textAlign: TextAlign.start,
+                                                maxLines: 2,
+                                                minFontSize: 15,
+                                                style: TextStyle(
+                                                  fontSize: 17,
+                                                  color: kColorBlack,
+                                                  fontWeight: FontWeight.w500,),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                         SizedBox(
-                                          width: 2,
+                                          height: 10,
                                         ),
-                                        AutoSizeText(
-                                          'PAYMENT:',
-                                          textAlign: TextAlign.start,
-                                          maxLines: 2,
-                                          minFontSize: 15,
-                                          style: TextStyle(
-                                            fontSize: 17,
-                                            color: kColorBlack,
-                                            fontWeight: FontWeight.w500,),
+                                        //TODO: Pay via new card
+                                        CusRaisedButton(
+                                          title: 'Pay via new card',
+                                          backgroundColor: Colors.deepOrangeAccent,
+                                          onPress: () async {
+                                            String orderId = DateTime.now()
+                                                .millisecondsSinceEpoch
+                                                .toString();
+                                            var response = await StripeService
+                                                .paymentWithNewCard(
+                                                    amount: (((widget.total >= 300000) ? 0 : 20000) + widget.total - discountPrice.floor()).toString(),
+                                                    currency: 'VND',
+                                                    orderId: orderId,);
+                                            // TODO: Create Order
+                                            /*if (response.success) {
+                                              _checkoutController.onPayment(
+                                                name: _receiverName,
+                                                phoneNumber: _phoneNumber,
+                                                address: _address,
+                                                productList: widget.productList,
+                                                total: widget.total.toString(),
+                                                clientSecret: response.clientSecret,
+                                                orderId: orderId,
+                                                paymentMethodId: response.paymentMethodId,
+                                                discountPrice: discountPrice.floor().toString(),
+                                                coupon: coupon,
+                                              );
+                                              Navigator.push(context, MaterialPageRoute(
+                                                builder: (context) => PaymentCompleteView(
+                                                  totalPrice: widget.total,
+                                                ),),
+                                              );
+                                            } else {
+                                              Navigator.pop(context);
+                                              widget._globalKey.currentState.showSnackBar(SnackBar(
+                                                content: Text(response.clientSecret),
+                                                duration: Duration(seconds: 10),
+                                              ));
+                                            }*/
+
+                                            _checkoutController.onPayment(
+                                              name: _receiverName,
+                                              phoneNumber: _phoneNumber,
+                                              address: _address,
+                                              productList: widget.productList,
+                                              total: widget.total.toString(),
+                                              clientSecret: response.clientSecret,
+                                              orderId: orderId,
+                                              paymentMethodId: response.paymentMethodId,
+                                              discountPrice: discountPrice.floor().toString(),
+                                              coupon: coupon,
+                                            );
+                                            Navigator.push(context, MaterialPageRoute(
+                                              builder: (context) => PaymentCompleteView(
+                                                totalPrice: widget.total,
+                                              ),),
+                                            );
+                                          },
+                                        ),
+                                        SizedBox(
+                                          height: 7,
+                                        ),
+                                        //TODO: Payment via existing card
+                                        CusRaisedButton(
+                                          title: 'Pay via existing card',
+                                          backgroundColor: Colors.deepOrangeAccent,
+                                          onPress: () {
+                                            showDialog(
+                                                context: context,
+                                                builder: (context) => Dialog(
+                                                      child: StreamBuilder<
+                                                          QuerySnapshot>(
+                                                        stream: FirebaseFirestore
+                                                            .instance
+                                                            .collection('Cards')
+                                                            .where('uid', isEqualTo: widget.uid)
+                                                            .snapshots(),
+                                                        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot>snapshot) {
+                                                          if (snapshot.hasData) {
+                                                            return Column(
+                                                              children: <Widget>[
+                                                                SizedBox(
+                                                                  height:7,
+                                                                ),
+                                                                AutoSizeText(
+                                                                  'Bank Cards',
+                                                                  textAlign: TextAlign.center,
+                                                                  maxLines: 2,
+                                                                  minFontSize: 15,
+                                                                  style: TextStyle(
+                                                                      fontSize:17,
+                                                                      color: kColorBlack,
+                                                                      fontWeight: FontWeight.w500),
+                                                                ),
+                                                                SizedBox(
+                                                                  height: 7,
+                                                                ),
+                                                                (snapshot.data.docs.length != 0)
+                                                                    ? ListView(
+                                                                  shrinkWrap: true,
+                                                                  scrollDirection: Axis.vertical,
+                                                                  children: snapshot.data.docs.map((DocumentSnapshot document) {
+                                                                    return Center(
+                                                                      child: GestureDetector(
+                                                                              //TODO: Payment with exist card
+                                                                        onTap: () async {
+                                                                          ProgressDialog
+                                                                          dialog = new ProgressDialog(context);
+                                                                          dialog.style(message: 'Please wait...');
+                                                                          dialog.show();
+                                                                                //TODO: Show dialog loading
+                                                                          cardNumber = document['cardNumber'];
+                                                                          expiryMonth = document['expiryMonth'];
+                                                                          expiryYear = document['expiryYear'];
+                                                                          cardHolderName = document['cardHolderName'];
+                                                                          cvvCode = document['cvvCode'];
+                                                                          CreditCard stripeCard = CreditCard(
+                                                                            number: cardNumber,
+                                                                            expMonth: expiryMonth,
+                                                                            expYear: expiryYear,);
+                                                                          String orderId = DateTime.now().millisecondsSinceEpoch.toString();
+                                                                          var response = await StripeService.paymentWithExistCard(
+                                                                              amount: (((widget.total >= 300000) ? 0 : 20000) + widget.total - discountPrice.floor()).toString(),
+                                                                              currency: 'VND',
+                                                                              card: stripeCard,
+                                                                              orderId: orderId);
+                                                                          dialog.hide();
+                                                                                // TODO: Create Order
+                                                                          if (response.success) {
+                                                                            _checkoutController.onPayment(
+                                                                                name: _receiverName,
+                                                                                phoneNumber: _phoneNumber,
+                                                                                address: _address,
+                                                                                productList: widget.productList,
+                                                                                total: widget.total.toString(),
+                                                                                orderId: orderId,
+                                                                                clientSecret: response.clientSecret,
+                                                                                paymentMethodId: response.paymentMethodId,
+                                                                                discountPrice: discountPrice.floor().toString(),
+                                                                                coupon: coupon);
+                                                                                  //TODO: Payment success
+                                                                            Navigator.push(context,
+                                                                                MaterialPageRoute(
+                                                                                    builder: (context) => PaymentCompleteView(totalPrice: widget.total,)));
+                                                                                } else {
+                                                                                  Navigator.pop(context);
+                                                                                  Navigator.pop(context);
+                                                                                  widget._globalKey.currentState.showSnackBar(SnackBar(
+                                                                                    content: Text(response.clientSecret),
+                                                                                    duration: Duration(seconds: 10),
+                                                                                  ));
+                                                                                }
+                                                                              },
+                                                                              child:
+                                                                                  CreditCardWidget(
+                                                                                height: 170,
+                                                                                width: 260,
+                                                                                textStyle: TextStyle(
+                                                                                    fontSize: 17,
+                                                                                    color: kColorWhite,
+                                                                                    fontWeight: FontWeight.bold),
+                                                                                cardNumber: document['cardNumber'],
+                                                                                expiryDate: '${document['expiryMonth'].toString()} / ${document['expiryYear'].toString()}',
+                                                                                cardHolderName: document['cardHolderName'],
+                                                                                cvvCode: document['cvvCode'],
+                                                                                showBackView: false,
+                                                                              ),
+                                                                            ),
+                                                                          );
+                                                                        }).toList(),
+                                                                      )
+                                                                    : Container(
+                                                                        height:400,
+                                                                        width: 260,
+                                                                        child: Stack(
+                                                                          children: <Widget>[
+                                                                            Positioned(
+                                                                              top: 175,
+                                                                              left: 60,
+                                                                              child: Container(
+                                                                                width: 162,
+                                                                                height: 85,
+                                                                                decoration: BoxDecoration(
+                                                                                  image: DecorationImage(
+                                                                                    image: AssetImage(KImageAddress + 'noCreditCard.png'),
+                                                                                    fit: BoxFit.fill,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                            Positioned(
+                                                                              top: 325,
+                                                                              left: 50,
+                                                                              child: Text(' No Credit Card Found',
+                                                                                style: kBoldTextStyle.copyWith(
+                                                                                    color: kColorBlack.withOpacity(0.8),
+                                                                                    fontSize: 18,
+                                                                                    fontWeight: FontWeight.w600),
+                                                                              ),
+                                                                            )
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                              ],
+                                                            );
+                                                          } else {
+                                                            return Center(
+                                                                child: CircularProgressIndicator());
+                                                          }
+                                                        },
+                                                      ),
+                                                    ));
+                                          },
+                                        ),
+                                        SizedBox(
+                                          height: 7,
+                                        ),
+                                        CusRaisedButton(
+                                          title: 'Cancel',
+                                          backgroundColor: kColorBlack,
+                                          onPress: () {
+                                            Navigator.pop(context);
+                                          },
                                         ),
                                       ],
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  //TODO: Pay via new card
-                                  CusRaisedButton(
-                                    title: 'Pay via new card',
-                                    backgroundColor: Colors.deepOrangeAccent,
-                                    onPress: () async {
-                                      String orderId = DateTime.now()
-                                          .millisecondsSinceEpoch
-                                          .toString();
-                                      var response = await StripeService
-                                          .paymentWithNewCard(
-                                              amount: (((widget.total >= 300000) ? 0 : 20000) + widget.total - discountPrice.floor()).toString(),
-                                              currency: 'VND',
-                                              orderId: orderId,);
-                                      // TODO: Create Order
-                                      /*if (response.success) {
-                                        _checkoutController.onPayment(
-                                          name: _receiverName,
-                                          phoneNumber: _phoneNumber,
-                                          address: _address,
-                                          productList: widget.productList,
-                                          total: widget.total.toString(),
-                                          clientSecret: response.clientSecret,
-                                          orderId: orderId,
-                                          paymentMethodId: response.paymentMethodId,
-                                          discountPrice: discountPrice.floor().toString(),
-                                          coupon: coupon,
-                                        );
-                                        Navigator.push(context, MaterialPageRoute(
-                                          builder: (context) => PaymentCompleteView(
-                                            totalPrice: widget.total,
-                                          ),),
-                                        );
-                                      } else {
-                                        Navigator.pop(context);
-                                        widget._globalKey.currentState.showSnackBar(SnackBar(
-                                          content: Text(response.clientSecret),
-                                          duration: Duration(seconds: 10),
-                                        ));
-                                      }*/
-
-                                      _checkoutController.onPayment(
-                                        name: _receiverName,
-                                        phoneNumber: _phoneNumber,
-                                        address: _address,
-                                        productList: widget.productList,
-                                        total: widget.total.toString(),
-                                        clientSecret: response.clientSecret,
-                                        orderId: orderId,
-                                        paymentMethodId: response.paymentMethodId,
-                                        discountPrice: discountPrice.floor().toString(),
-                                        coupon: coupon,
-                                      );
-                                      Navigator.push(context, MaterialPageRoute(
-                                        builder: (context) => PaymentCompleteView(
-                                          totalPrice: widget.total,
-                                        ),),
-                                      );
-                                    },
-                                  ),
-                                  SizedBox(
-                                    height: 7,
-                                  ),
-                                  //TODO: Payment via existing card
-                                  CusRaisedButton(
-                                    title: 'Pay via existing card',
-                                    backgroundColor: Colors.deepOrangeAccent,
-                                    onPress: () {
-                                      showDialog(
-                                          context: context,
-                                          builder: (context) => Dialog(
-                                                child: StreamBuilder<
-                                                    QuerySnapshot>(
-                                                  stream: FirebaseFirestore
-                                                      .instance
-                                                      .collection('Cards')
-                                                      .where('uid', isEqualTo: widget.uid)
-                                                      .snapshots(),
-                                                  builder: (BuildContext context, AsyncSnapshot<QuerySnapshot>snapshot) {
-                                                    if (snapshot.hasData) {
-                                                      return Column(
-                                                        children: <Widget>[
-                                                          SizedBox(
-                                                            height:7,
-                                                          ),
-                                                          AutoSizeText(
-                                                            'Bank Cards',
-                                                            textAlign: TextAlign.center,
-                                                            maxLines: 2,
-                                                            minFontSize: 15,
-                                                            style: TextStyle(
-                                                                fontSize:17,
-                                                                color: kColorBlack,
-                                                                fontWeight: FontWeight.w500),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 7,
-                                                          ),
-                                                          (snapshot.data.docs.length != 0)
-                                                              ? ListView(
-                                                            shrinkWrap: true,
-                                                            scrollDirection: Axis.vertical,
-                                                            children: snapshot.data.docs.map((DocumentSnapshot document) {
-                                                              return Center(
-                                                                child: GestureDetector(
-                                                                        //TODO: Payment with exist card
-                                                                  onTap: () async {
-                                                                    ProgressDialog
-                                                                    dialog = new ProgressDialog(context);
-                                                                    dialog.style(message: 'Please wait...');
-                                                                    dialog.show();
-                                                                          //TODO: Show dialog loading
-                                                                    cardNumber = document['cardNumber'];
-                                                                    expiryMonth = document['expiryMonth'];
-                                                                    expiryYear = document['expiryYear'];
-                                                                    cardHolderName = document['cardHolderName'];
-                                                                    cvvCode = document['cvvCode'];
-                                                                    CreditCard stripeCard = CreditCard(
-                                                                      number: cardNumber,
-                                                                      expMonth: expiryMonth,
-                                                                      expYear: expiryYear,);
-                                                                    String orderId = DateTime.now().millisecondsSinceEpoch.toString();
-                                                                    var response = await StripeService.paymentWithExistCard(
-                                                                        amount: (((widget.total >= 300000) ? 0 : 20000) + widget.total - discountPrice.floor()).toString(),
-                                                                        currency: 'VND',
-                                                                        card: stripeCard,
-                                                                        orderId: orderId);
-                                                                    dialog.hide();
-                                                                          // TODO: Create Order
-                                                                    if (response.success) {
-                                                                      _checkoutController.onPayment(
-                                                                          name: _receiverName,
-                                                                          phoneNumber: _phoneNumber,
-                                                                          address: _address,
-                                                                          productList: widget.productList,
-                                                                          total: widget.total.toString(),
-                                                                          orderId: orderId,
-                                                                          clientSecret: response.clientSecret,
-                                                                          paymentMethodId: response.paymentMethodId,
-                                                                          discountPrice: discountPrice.floor().toString(),
-                                                                          coupon: coupon);
-                                                                            //TODO: Payment success
-                                                                      Navigator.push(context,
-                                                                          MaterialPageRoute(
-                                                                              builder: (context) => PaymentCompleteView(totalPrice: widget.total,)));
-                                                                          } else {
-                                                                            Navigator.pop(context);
-                                                                            Navigator.pop(context);
-                                                                            widget._globalKey.currentState.showSnackBar(SnackBar(
-                                                                              content: Text(response.clientSecret),
-                                                                              duration: Duration(seconds: 10),
-                                                                            ));
-                                                                          }
-                                                                        },
-                                                                        child:
-                                                                            CreditCardWidget(
-                                                                          height: 170,
-                                                                          width: 260,
-                                                                          textStyle: TextStyle(
-                                                                              fontSize: 17,
-                                                                              color: kColorWhite,
-                                                                              fontWeight: FontWeight.bold),
-                                                                          cardNumber: document['cardNumber'],
-                                                                          expiryDate: '${document['expiryMonth'].toString()} / ${document['expiryYear'].toString()}',
-                                                                          cardHolderName: document['cardHolderName'],
-                                                                          cvvCode: document['cvvCode'],
-                                                                          showBackView: false,
-                                                                        ),
-                                                                      ),
-                                                                    );
-                                                                  }).toList(),
-                                                                )
-                                                              : Container(
-                                                                  height:400,
-                                                                  width: 260,
-                                                                  child: Stack(
-                                                                    children: <Widget>[
-                                                                      Positioned(
-                                                                        top: 175,
-                                                                        left: 60,
-                                                                        child: Container(
-                                                                          width: 162,
-                                                                          height: 85,
-                                                                          decoration: BoxDecoration(
-                                                                            image: DecorationImage(
-                                                                              image: AssetImage(KImageAddress + 'noCreditCard.png'),
-                                                                              fit: BoxFit.fill,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                      Positioned(
-                                                                        top: 325,
-                                                                        left: 50,
-                                                                        child: Text(' No Credit Card Found',
-                                                                          style: kBoldTextStyle.copyWith(
-                                                                              color: kColorBlack.withOpacity(0.8),
-                                                                              fontSize: 18,
-                                                                              fontWeight: FontWeight.w600),
-                                                                        ),
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                        ],
-                                                      );
-                                                    } else {
-                                                      return Center(
-                                                          child: CircularProgressIndicator());
-                                                    }
-                                                  },
-                                                ),
-                                              ));
-                                    },
-                                  ),
-                                  SizedBox(
-                                    height: 7,
-                                  ),
-                                  CusRaisedButton(
-                                    title: 'Cancel',
-                                    backgroundColor: kColorBlack,
-                                    onPress: () {
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        });
-                  }
-                },
-              );
-            }),
+                                );
+                              });
+                        }
+                      },
+                    );
+                  }),
+            ),
+          ],
+        ),
       ),
     );
   }

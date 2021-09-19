@@ -11,6 +11,7 @@ import 'package:phone_verification/helpers/constants.dart';
 import 'package:phone_verification/helpers/shared_preferrence.dart';
 import 'package:phone_verification/model/categogy.dart';
 import 'package:phone_verification/model/product.dart';
+import 'package:phone_verification/screens/Customer/HomePage/home/components/item_card.dart';
 import 'package:phone_verification/screens/Customer/HomePage/homescreen/item_cards.dart';
 import 'package:phone_verification/screens/customer/HomePage/details/details_screen.dart';
 import 'package:phone_verification/screens/customer/HomePage/home/components/categories.dart';
@@ -159,10 +160,10 @@ class _BodysState extends State<Bodys> {
   }
 
 
+
+
   @override
   Widget build(BuildContext context) {
-
-
     double _w = MediaQuery.of(context).size.width;
     return ListView(
       padding: EdgeInsets.zero,
@@ -219,6 +220,7 @@ class _BodysState extends State<Bodys> {
                         autoPlayAnimationDuration: Duration(milliseconds: 800),
                         autoPlayCurve: Curves.fastOutSlowIn,
                         enlargeCenterPage: true,
+                        enlargeStrategy: CenterPageEnlargeStrategy.height,
                         //onPageChanged: callbackFunction,
                         scrollDirection: Axis.horizontal,
                         onPageChanged: (index, carouselPageChangedReason) {
@@ -315,23 +317,23 @@ class _BodysState extends State<Bodys> {
                                       ),
                                     ),
                                   ),
-                                  Positioned(
-                                    bottom: 10,
-                                    right: 10,
-                                    child: DotsIndicator(
-                                      dotsCount: snapshot.data.docs.length == 0 ? 1 : snapshot.data.docs.length,
-                                      position: currentIndex.toDouble(),
-                                      decorator: DotsDecorator(
-                                        color: Colors.black.withOpacity(0.5),
-                                        activeColor: Colors.black.withOpacity(0.5),
-                                        size: const Size.square(10.0),
-                                        activeSize: const Size(30.0, 10.0),
-                                        activeShape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(5.0),
-                                        ),
-                                      ),
-                                    ),
-                                  )
+                                  // Positioned(
+                                  //   bottom: 10,
+                                  //   right: 10,
+                                  //   child: DotsIndicator(
+                                  //     dotsCount: snapshot.data.docs.length == 0 ? 1 : snapshot.data.docs.length,
+                                  //     position: currentIndex.toDouble(),
+                                  //     decorator: DotsDecorator(
+                                  //       color: Colors.black.withOpacity(0.5),
+                                  //       activeColor: Colors.black.withOpacity(0.5),
+                                  //       size: const Size.square(10.0),
+                                  //       activeSize: const Size(30.0, 10.0),
+                                  //       activeShape: RoundedRectangleBorder(
+                                  //         borderRadius: BorderRadius.circular(5.0),
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // )
                                 ],
                               ),
                             );
@@ -392,14 +394,16 @@ class _BodysState extends State<Bodys> {
                         highlightColor: Colors.transparent,
                         icon:
                         Icon(
-                          Icons.shopping_cart_outlined,
+                          Icons.chat,
                           color: Colors.white.withOpacity(.7),
                           size: 28,
                         ),
 
                         onPressed: () {
                           if (_isLogging) {
-                            Navigator.pushNamed(context, 'customer_cart_page');
+                            //Navigator.pushNamed(context, 'customer_cart_page');
+                            //'customer_chat_screen'
+                            Navigator.pushNamed(context, 'customer_chat_screen');
                             //TODO: Add product
                           } else {
                             Navigator.pushNamed(context, 'phone_in');
@@ -409,6 +413,23 @@ class _BodysState extends State<Bodys> {
                     ],
                   ),
                 ],
+              ),
+            ),
+            Positioned(
+              bottom: 10,
+              right: 10,
+              child: DotsIndicator(
+                dotsCount: 5 == 0 ? 1 : 5,
+                position: currentIndex.toDouble(),
+                decorator: DotsDecorator(
+                  color: Colors.black.withOpacity(0.5),
+                  activeColor: Colors.black.withOpacity(0.5),
+                  size: const Size.square(10.0),
+                  activeSize: const Size(30.0, 10.0),
+                  activeShape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                ),
               ),
             ),
           ],
@@ -426,8 +447,8 @@ class _BodysState extends State<Bodys> {
                   Text(
                     "Recommended for you",
                     style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 22,
+                      color: Colors.black54,
+                      fontSize: 20,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -435,10 +456,10 @@ class _BodysState extends State<Bodys> {
                     child:  Row(
                       children: [
                         Text(
-                          "View more",
+                          "View All",
                           style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 22,
+                            color: Colors.grey,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -717,23 +738,7 @@ class _BodysState extends State<Bodys> {
                                       //     ),
                                       //   ),
                                       // ),
-                                      Positioned(
-                                        bottom: 10,
-                                        right: 10,
-                                        child: DotsIndicator(
-                                          dotsCount: snapshot.data.docs.length == 0 ? 1 : snapshot.data.docs.length,
-                                          position: _currentIndex.toDouble(),
-                                          decorator: DotsDecorator(
-                                            color: Colors.black.withOpacity(0.5),
-                                            activeColor: Colors.black.withOpacity(0.5),
-                                            size: const Size.square(10.0),
-                                            activeSize: const Size(30.0, 10.0),
-                                            activeShape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(5.0),
-                                            ),
-                                          ),
-                                        ),
-                                      )
+
                                     ],
                                   ),
                                 );
@@ -741,36 +746,179 @@ class _BodysState extends State<Bodys> {
                             );
                           }).toList(),
                         ),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: snapshot.data.docs.map((image) {
-                        //     int index = snapshot.data.docs.indexOf(image);
-                        //     return Container(
-                        //       width: 10.0,
-                        //       height: 10.0,
-                        //       margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                        //       decoration: BoxDecoration(
-                        //         shape: BoxShape.circle,
-                        //         color: _currentIndex == index
-                        //             ? Colors.white60
-                        //             : Color.fromRGBO(0, 0, 0, 0.4),
-                        //       ),
-                        //     );
-                        //   }).toList(),
-                        // )
-                        // DotsIndicator(
-                        //   dotsCount: snapshot.data.docs.length == 0 ? 1 : snapshot.data.docs.length,
-                        //   position: _currentIndex.toDouble(),
-                        //   decorator: DotsDecorator(
-                        //     size: const Size.square(9.0),
-                        //     activeSize: const Size(18.0, 9.0),
-                        //     activeShape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-                        //   ),
-                        // ),
                       ],
                     );
                   }
                 }),
+            Positioned(
+              bottom: 10,
+              right: 10,
+              child: DotsIndicator(
+                //dotsCount: snapshot.data.docs.length == 0 ? 1 : snapshot.data.docs.length,
+                dotsCount: 5 == 0 ? 1 : 5,
+                position: _currentIndex.toDouble(),
+                decorator: DotsDecorator(
+                  color: Colors.black.withOpacity(0.5),
+                  activeColor: Colors.black.withOpacity(0.5),
+                  size: const Size.square(10.0),
+                  activeSize: const Size(30.0, 10.0),
+                  activeShape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
+        kDivider,
+        Column(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.only(left: 10,right: 10,top: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    "Recommended for you",
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  InkWell(
+                    child:  Row(
+                      children: [
+                        Text(
+                          "View All",
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(width: 10,),
+                        Container(
+                          padding: EdgeInsets.all(6),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.black
+                          ),
+                          child: Icon(
+                            Icons.arrow_forward_ios,
+                            color: Colors.white,
+                            size: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                    onTap: () {
+                      //Navigator.pushNamed(context, 'customer_search_page');
+                    },
+                  )
+                ],
+              ),
+            ),
+            //SizedBox(height: 10,),
+            StreamBuilder<QuerySnapshot>(
+                stream: getFirestoreNew(),
+                builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return Container(
+                      width: 350,
+                      height: 500,
+                      child: Stack(
+                        children: <Widget>[
+                          Center(
+                            child: Container(
+                              width: 187,
+                              height: 110,
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: AssetImage(
+                                      KImageAddress + 'noSearchResult.png'),
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 325,
+                            left: 80,
+                            child: Text(
+                              'Sorry, No Search Result',
+                              style: kBoldTextStyle.copyWith(
+                                  color: kColorBlack.withOpacity(0.8),
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  } else {
+                    return Container(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 5, bottom: 10, right: 5),
+                        child: StaggeredGridView.count(
+                          shrinkWrap: true,
+                          physics: ScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          crossAxisCount: 4,
+                          //padding: const EdgeInsets.all(10),
+                          crossAxisSpacing: 4,
+                          mainAxisSpacing: 10,
+                          //childAspectRatio: 0.7,
+                          // staggeredTiles: [
+                          //   StaggeredTile.extent(1, 250),
+                          //   StaggeredTile.extent(1, 230),
+                          // ],
+
+                          staggeredTiles: generateTile(snapshot.data.docs.length),
+                          children: snapshot.data.docs
+                              .map((DocumentSnapshot document) {
+                            return ItemCard(
+                              brand: document['brand'],
+                              productName: document['name'],
+                              image: document['image'][0],
+                              isSoldOut: (document['quantity'] == '0'),
+                              price: int.parse(document['price']),
+                              salePrice: (document['sale_price'] != '0')
+                                  ? int.parse(document['sale_price'])
+                                  : 0,
+                              onTap: ()  {
+                                Product product = new Product(
+                                  id: document['id'],
+                                  productName: document['name'],
+                                  imageList: document['image'],
+                                  category: document['categogy'],
+                                  sizeList: document['size'],
+                                  colorList: document['color'],
+                                  price: document['price'],
+                                  salePrice: document['sale_price'],
+                                  brand: document['brand'],
+                                  madeIn: document['made_in'],
+                                  quantityMain: document['quantity'],
+                                  quantity: '',
+                                  description: document['description'],
+                                  rating: document['rating'],
+                                );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DetailsScreen(
+                                      product: product,
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          }).toList(),
+                        ),
+                      ),
+                    );
+                  }
+                })
           ],
         ),
       ],
@@ -796,6 +944,31 @@ class _BodysState extends State<Bodys> {
         _staggeredTiles.add(new StaggeredTile.extent(2, 190));
       }else{
         _staggeredTiles.add(new StaggeredTile.extent(2, 190));
+      }
+    }
+    return _staggeredTiles;
+  }
+
+  List<StaggeredTile> generateTile(int count) {
+    //Random rnd = new Random();
+    List<StaggeredTile> _staggeredTiles = [];
+    for (int i=0; i<count; i++) {
+      // num mainAxisCellCount = 0;
+      // double temp = rnd.nextDouble();
+      //double temp = 1;
+      // if (temp > 0.6) {
+      //   mainAxisCellCount = temp + 0.6;
+      // } else if (temp < 0.3) {
+      //   mainAxisCellCount = temp + 0.9;
+      // } else {
+      //   mainAxisCellCount = temp + 0.7;
+      // }
+      // _staggeredTiles.add(new StaggeredTile.count(rnd.nextInt(1) + 1, mainAxisCellCount));
+      //_staggeredTiles.add(new StaggeredTile.extent(1, 250));
+      if(i%2==0) {
+        _staggeredTiles.add(new StaggeredTile.extent(2, 320));
+      }else{
+        _staggeredTiles.add(new StaggeredTile.extent(2, 320));
       }
     }
     return _staggeredTiles;

@@ -28,6 +28,7 @@ class CartProductCard extends StatefulWidget {
     this.madeIn,
     this.onQtyChange,
     this.onClose,
+    this.onTap,
     //this.numOfItems = 1,
   });
   final String productName;
@@ -41,6 +42,7 @@ class CartProductCard extends StatefulWidget {
   final String madeIn;
   final Function onClose;
   final Function onQtyChange;
+  final Function onTap;
   final String id;
   //int numOfItems;
 
@@ -84,7 +86,7 @@ class _CartProductCardState extends State<CartProductCard> {
         ],
         ///
         child: Container(
-          height: 130,
+          height: 180,
           decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(3),
@@ -103,21 +105,24 @@ class _CartProductCardState extends State<CartProductCard> {
               children: <Widget>[
                 // TODO: Image Product
                 Expanded(
-                  flex: 3,
+                  flex: 5,
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 5),
                     child: Stack(
                       children: <Widget>[
                         //TODO: image
-                        Container(
-                          width: 110,
-                          height: 130,
-                          decoration: BoxDecoration(
-                            //border: Border.all(color: kColorBlack.withOpacity(0.5)),
-                            borderRadius: BorderRadius.circular(5),
-                            image: DecorationImage(
-                              image: NetworkImage(widget.productImage),
-                              fit: BoxFit.fill,
+                        InkWell(
+                          onTap: widget.onTap,
+                          child: Container(
+                            width: 170,
+                            height: 170,
+                            decoration: BoxDecoration(
+                              //border: Border.all(color: kColorBlack.withOpacity(0.5)),
+                              borderRadius: BorderRadius.circular(8),
+                              image: DecorationImage(
+                                image: NetworkImage(widget.productImage),
+                                fit: BoxFit.fill,
+                              ),
                             ),
                           ),
                         ),
@@ -132,201 +137,201 @@ class _CartProductCardState extends State<CartProductCard> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
                       //// TODO: Name Product
-                      Container(
-                        child: Expanded(
-                          flex: 5,
+                      Expanded(
+                        flex: 7,
+                        child: Container(
+                          padding: EdgeInsets.all(4),
                           child: Column(
                             children: <Widget>[
-                              Align(
-                                alignment: Alignment.topLeft,
-                                child: AutoSizeText(
-                                  widget.productName,
-                                  textAlign: TextAlign.start,
-                                  maxLines: 2,
-                                  minFontSize: 15,
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      color: kColorBlack,
-                                      fontWeight: FontWeight.bold),
+                              Expanded(
+                                flex: 5,
+                                child: Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Text(
+                                    widget.productName,
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                        fontSize: 24,
+                                        color: kColorBlack,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               ),
-                              SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  // TODO: Product Size
-                                  Container(
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Size: ',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: kColorBlack,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Align(
-                                          alignment: Alignment.topLeft,
-                                          child: AutoSizeText(
-                                            widget.productSize,
-                                            textAlign: TextAlign.start,
-                                            maxLines: 2,
-                                            minFontSize: 15,
+                              Expanded(
+                                flex: 5,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    // TODO: Product Size
+                                    Container(
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'Size: ',
                                             style: TextStyle(
-                                                fontSize: 18,
-                                                color: kColorBlack,
-                                                fontWeight: FontWeight.bold),
+                                              fontSize: 16,
+                                              color: kColorBlack,
+                                              fontWeight: FontWeight.w400,
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  //SizedBox(width: 50,),
-                                  // TODO: Product Color
-                                  Container(
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          'Màu:',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: kColorBlack,
-                                            fontWeight: FontWeight.w400,
+                                          Align(
+                                            child: AutoSizeText(
+                                              widget.productSize,
+                                              textAlign: TextAlign.start,
+                                              maxLines: 2,
+                                              minFontSize: 15,
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: kColorBlack,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Container(
-                                          width: 30,
-                                          height: 30,
-                                          decoration: BoxDecoration(
-                                            border: Border.all(color: kColorBlack.withOpacity(0.5)),
-                                            borderRadius: BorderRadius.circular(30),
-                                            color: widget.productColor,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width: 50,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  //TODO: quantity
-                                  /*Row(
-                                    children: <Widget>[
-                                      buildOutlineButton(
-                                        icon: Icons.remove,
-                                        press: () {
-                                          if (widget.quantity > 1) {
-                                            setState(() {
-                                              widget.quantity--;
-                                              //widget.quantity = qty;
-                                              //widget.onQtyChange = qty;
-                                            });
-                                          }
-                                        },
+                                        ],
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin / 2),
-                                        child: Text(
-                                          // if our item is less  then 10 then  it shows 01 02 like that
-                                          widget.quantity.toString().padLeft(2, "0"),
-                                          style: Theme.of(context).textTheme.headline6,
-                                        ),
+                                    ),
+                                    // TODO: Product Color
+                                    Container(
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            'Màu:',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              color: kColorBlack,
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Container(
+                                            width: 30,
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                              border: Border.all(color: kColorBlack.withOpacity(0.5)),
+                                              borderRadius: BorderRadius.circular(30),
+                                              color: widget.productColor,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 50,
+                                          ),
+                                        ],
                                       ),
-                                      //numOfItems = ,
-                                      buildOutlineButton(
-                                          icon: Icons.add,
-                                          press: () {
-                                            setState(() {
-                                              widget.quantity++;
-                                            });
-                                            //widget.onQtyChange;
-                                          }),
-                                    ],
-                                  ),*/
-                                ],
+                                    ),
+                                    //TODO: quantity
+                                    /*Row(
+                                        children: <Widget>[
+                                          buildOutlineButton(
+                                            icon: Icons.remove,
+                                            press: () {
+                                              if (widget.quantity > 1) {
+                                                setState(() {
+                                                  widget.quantity--;
+                                                  //widget.quantity = qty;
+                                                  //widget.onQtyChange = qty;
+                                                });
+                                              }
+                                            },
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(horizontal: kDefaultPaddin / 2),
+                                            child: Text(
+                                              // if our item is less  then 10 then  it shows 01 02 like that
+                                              widget.quantity.toString().padLeft(2, "0"),
+                                              style: Theme.of(context).textTheme.headline6,
+                                            ),
+                                          ),
+                                          //numOfItems = ,
+                                          buildOutlineButton(
+                                              icon: Icons.add,
+                                              press: () {
+                                                setState(() {
+                                                  widget.quantity++;
+                                                });
+                                                //widget.onQtyChange;
+                                              }),
+                                        ],
+                                      ),*/
+                                  ],
+                                ),
                               ),
                             ],
                           ),
                         ),
                       ),
-                      Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              //flex: 1,
-                              child:TextFormField(
-                                initialValue: widget.quantity.toString(),
-                                textAlign: TextAlign.center,
-                                decoration: InputDecoration(
-                                  hintText: 'Số lượng',
-                                  hintStyle: kBoldTextStyle.copyWith(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w400,
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                //flex: 1,
+                                child:TextFormField(
+                                  initialValue: widget.quantity.toString(),
+                                  textAlign: TextAlign.center,
+                                  decoration: InputDecoration(
+                                    hintText: 'Số lượng',
+                                    hintStyle: kBoldTextStyle.copyWith(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    focusColor: Colors.black,
                                   ),
-                                  focusColor: Colors.black,
+                                  maxLines: 1,
+                                  keyboardType: TextInputType.number,
+                                  onChanged: (qty) {
+                                    widget.onQtyChange(qty);
+                                  },
                                 ),
-                                maxLines: 1,
-                                keyboardType: TextInputType.number,
-                                onChanged: (qty) {
-                                  widget.onQtyChange(qty);
-                                },
                               ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Align(
-                                alignment: Alignment.bottomRight,
-                                child: (widget.productSalePrice == 0)
-                                    ? AutoSizeText(
-                                        '${Util.intToMoneyType(widget.productPrice)} VND',
+                              Expanded(
+                                flex: 2,
+                                child: Align(
+                                  alignment: Alignment.bottomRight,
+                                  child: (widget.productSalePrice == 0)
+                                      ? AutoSizeText(
+                                    '${Util.intToMoneyType(widget.productPrice)} VND',
+                                    maxLines: 1,
+                                    minFontSize: 10,
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: kColorBlack,
+                                        fontWeight: FontWeight.w400),
+                                    textAlign: TextAlign.end,
+                                  )
+                                      : Column(
+                                    children: <Widget>[
+                                      //TODO: discount
+                                      AutoSizeText(
+                                        '${discount.toInt()}% OFF',
                                         maxLines: 1,
-                                        minFontSize: 10,
+                                        minFontSize: 5,
                                         style: TextStyle(
-                                            fontSize: 18,
-                                            color: kColorBlack,
+                                            fontSize: 15,
+                                            color: kColorRed,
                                             fontWeight: FontWeight.w400),
                                         textAlign: TextAlign.end,
-                                      )
-                                    : Column(
-                                        children: <Widget>[
-                                          //TODO: discount
-                                          AutoSizeText(
-                                            '${discount.toInt()}% OFF',
-                                            maxLines: 1,
-                                            minFontSize: 5,
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                color: kColorRed,
-                                                fontWeight: FontWeight.w400),
-                                            textAlign: TextAlign.end,
-                                          ),
-                                          //TODO: price sale
-                                          AutoSizeText(
-                                            '${Util.intToMoneyType(widget.productSalePrice)} VND',
-                                            maxLines: 1,
-                                            minFontSize: 5,
-                                            style: TextStyle(
-                                                fontSize: 21,
-                                                color: kColorRed,
-                                                fontWeight: FontWeight.bold),
-                                            textAlign: TextAlign.end,
-                                          ),
-                                        ],
                                       ),
+                                      //TODO: price sale
+                                      AutoSizeText(
+                                        '${Util.intToMoneyType(widget.productSalePrice)} VND',
+                                        maxLines: 1,
+                                        minFontSize: 5,
+                                        style: TextStyle(
+                                            fontSize: 21,
+                                            color: kColorRed,
+                                            fontWeight: FontWeight.bold),
+                                        textAlign: TextAlign.end,
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
-                            ),
-                            SizedBox(width: 10,)
-                          ],
+                              SizedBox(width: 10,)
+                            ],
+                          ),
                         ),
                       ),
                     ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phone_verification/screens/Customer/SearchPage/search_view.dart';
+import 'package:phone_verification/screens/Customer/chat_view.dart';
 import 'package:phone_verification/screens/Register/phoneIn/phone_in.dart';
 import 'package:phone_verification/screens/Register/phoneUp/phone_up.dart';
 import 'package:phone_verification/screens/Register/register_view.dart';
@@ -7,7 +8,6 @@ import 'package:phone_verification/screens/admin/Coupon/admin_coupon_view.dart';
 import 'package:phone_verification/screens/admin/OrderAndSold/admin_bill_history_view.dart';
 import 'package:phone_verification/screens/admin/Products/product_adding_view.dart';
 import 'package:phone_verification/screens/admin/Products/product_manager_view.dart';
-import 'package:phone_verification/screens/admin/SignIn/register_view.dart';
 import 'package:phone_verification/screens/admin/Users/admin_user_manager.dart';
 import 'package:phone_verification/screens/admin/admin_home_view.dart';
 import 'package:phone_verification/screens/customer/HomePage/cartpage/cart_view.dart';
@@ -20,10 +20,6 @@ import 'package:phone_verification/screens/customer/ProfilePage/OrderAndBill/ord
 import 'package:phone_verification/screens/customer/ProfilePage/OrderAndBill/order_info_view.dart';
 import 'package:phone_verification/screens/customer/ProfilePage/profile_view.dart';
 import 'package:phone_verification/screens/customer/customer_home_view.dart';
-import 'package:phone_verification/screens/phone/loggedInScreen.dart';
-import 'package:phone_verification/screens/phone/loginScreens.dart';
-import 'package:phone_verification/screens/phone/registerScreen.dart';
-import 'package:phone_verification/screens/Register/signin_password.dart';
 import 'package:phone_verification/screens/splash_view.dart';
 import 'package:phone_verification/screens/welcome_view.dart';
 
@@ -42,6 +38,7 @@ var routes = {
   'customer_home_screen': (context) => CustomerHomeView(),
   'customer_detail_product_screen': (context) => DetailsScreen(),
   'customer_search_page': (context) => SearchView(),
+  'customer_chat_screen': (context) => ChatScreen(),
 
   //ADMIN HOME VIEW
   'admin_home_screen': (context) => AdminHomeView(),

@@ -8,6 +8,7 @@ import 'package:phone_verification/helpers/TextStyle.dart';
 import 'package:phone_verification/helpers/colors_constant.dart';
 import 'package:phone_verification/screens/customer/ProfilePage/Detail/edit_detail_views.dart';
 import 'package:phone_verification/widgets/widget_title.dart';
+import 'package:phone_verification/widgets/widget_title_profile.dart';
 
 class DetailProfileView extends StatefulWidget {
   DetailProfileView({this.uid});
@@ -30,7 +31,6 @@ class _DetailProfileViewState extends State<DetailProfileView> {
 
   @override
   Widget build(BuildContext context) {
-    //ConstScreen.setScreen(context);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size(double.infinity, kToolbarHeight),
@@ -40,7 +40,7 @@ class _DetailProfileViewState extends State<DetailProfileView> {
             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: AppBar(
               //brightness: Brightness.dark,
-              backgroundColor: Colors.white,
+              backgroundColor: Color(0xFF84AB5C),
               elevation: 0,
               leading: IconButton(
                 icon: Icon(
@@ -54,7 +54,7 @@ class _DetailProfileViewState extends State<DetailProfileView> {
               ),
               centerTitle: true,
               title: Text(
-                'Detail',
+                'Profile',
                 style: kBoldTextStyle.copyWith(
                   fontSize: 16,
                 ),
@@ -121,11 +121,9 @@ class _DetailProfileViewState extends State<DetailProfileView> {
           ),
         ),
       ),
-      body: Container(
-          child: Padding(
-            padding: EdgeInsets.only(
-                top: 25,
-                left: 15),
+      body: ListView(
+        children: [
+          Container(
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('Users')
@@ -133,10 +131,11 @@ class _DetailProfileViewState extends State<DetailProfileView> {
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
+                  print(widget.uid);
                   return Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    //crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      TitleWidget(
+                      /*TitleWidget(
                         title: 'Full name:',
                         content: snapshot.data['fullname'],
                         isSpaceBetween: false,
@@ -160,6 +159,83 @@ class _DetailProfileViewState extends State<DetailProfileView> {
                         title: 'Birthday:',
                         content: snapshot.data['birthday'],
                         isSpaceBetween: false,
+                      ),*/
+                      SizedBox(
+                        //height: 150,
+                        child: Stack(
+                          children: <Widget>[
+                            ClipPath(
+                              clipper: CustomShape(),
+                              child: Container(
+                                height: 180,
+                                color: Color(0xFF84AB5C),
+                              ),
+                            ),
+                            Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: <Widget>[
+                                  Container(
+                                    margin: EdgeInsets.only(bottom: 10), //10
+                                    height: 180, //140
+                                    width: 160,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      border: Border.all(
+                                        color: Colors.white,
+                                        width: 5, //8
+                                      ),
+                                      image: DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: AssetImage("assets/images/welcome_wall.jpg"),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            height: 450,
+                            width: double.infinity,
+                            margin: EdgeInsets.symmetric(horizontal: 10),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                TitleWidgetProfile(
+                                  title: "Name",
+                                  content: snapshot.data['fullname'],
+                                ),
+                                TitleWidgetProfile(
+                                  title: 'Gender:',
+                                  content: snapshot.data['gender'],
+                                  isSpaceBetween: false,
+                                ),
+                                TitleWidgetProfile(
+                                  title: 'Phone:',
+                                  content: snapshot.data['phone'],
+                                  isSpaceBetween: false,
+                                ),
+                                TitleWidgetProfile(
+                                  title: 'Address:',
+                                  content: snapshot.data['address'],
+                                  isSpaceBetween: false,
+                                ),
+                                TitleWidgetProfile(
+                                  title: 'Birthday:',
+                                  content: snapshot.data['birthday'],
+                                  isSpaceBetween: false,
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
                       ),
                     ],
                   );
@@ -168,8 +244,31 @@ class _DetailProfileViewState extends State<DetailProfileView> {
                 }
               },
             ),
-          ),
-        ),
+          )
+        ],
+      ),
     );
+  }
+
+
+
+}
+
+class CustomShape extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    var path = Path();
+    double height = size.height;
+    double width = size.width;
+    path.lineTo(0, height - 100);
+    path.quadraticBezierTo(width / 2, height, width, height - 100);
+    path.lineTo(width, 0);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return true;
   }
 }

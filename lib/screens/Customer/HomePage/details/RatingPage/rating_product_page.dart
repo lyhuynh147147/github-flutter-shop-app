@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -42,275 +44,352 @@ class _RatingProductPageState extends State<RatingProductPage>
   @override
   Widget build(BuildContext context) {
     //ConstScreen.setScreen(context);
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          // TOP
-          Expanded(
-            flex: 1,
-            child: Container(
-              color: kColorLightGrey.withOpacity(0.4),
-              child: Stack(
-                children: <Widget>[
-                  //
-                  Positioned(
-                    child: IconButton(
-                      color: kColorBlack,
-                      iconSize: 27,
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: Icon(
-                        Icons.arrow_back_ios,
-                        size: 20,
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size(double.infinity, kToolbarHeight),
+        child: ClipRRect(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(5)),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: AppBar(
+              brightness: Brightness.dark,
+              backgroundColor: Colors.white.withOpacity(.05),
+              elevation: 0,
+              leading: IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios_outlined,
+                  color: Colors.black87,
+                  //size: 30,
+                ),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  //Navigator.pushNamed(context, 'customer_search_page');
+                },
+              ),
+              title: Text(
+                ' Your App\'s name',
+                style: TextStyle(
+                  fontSize: 20,
+                  //color: Colors.white.withOpacity(.7),
+                  color: Colors.black.withOpacity(.7),
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              actions: [
+                IconButton(
+                  tooltip: 'Settings',
+                  splashColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  icon:
+                  Icon(
+                    Icons.shopping_cart_outlined,
+                    color: Colors.black.withOpacity(.7),
+                  ),
+                  /*onPressed: () {
+                    HapticFeedback.lightImpact();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return RouteWhereYouGo2();
+                        },
+                      ),
+                    );
+                  },*/
+                  onPressed: () {
+                    /* Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                    builder: (ctx) => CartScreen()));*/
+                    if (_isLogging) {
+                      /*setState(() {
+                        _isAddBtnPress = false;
+                      });*/
+                      Navigator.pushNamed(context, 'customer_cart_page');
+
+                      //TODO: Add product
+                    } else {
+                      Navigator.pushNamed(context, 'phone_in');
+                    }
+                    //Navigator.pushNamed(context, 'customer_cart_page');
+                  },
+                ),
+                Text(''  ''),
+              ],
+            ),
+          ),
+        ),
+      ),
+      body: Container(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            //SizedBox(height: 10,),
+            // TOP
+            Expanded(
+              flex: 1,
+              child: Container(
+                color: kColorLightGrey.withOpacity(0.4),
+                child: Stack(
+                  children: <Widget>[
+                    //
+                    // Positioned(
+                    //   child: IconButton(
+                    //     color: kColorBlack,
+                    //     iconSize: 27,
+                    //     onPressed: () {
+                    //       Navigator.pop(context);
+                    //     },
+                    //     icon: Icon(
+                    //       Icons.arrow_back_ios,
+                    //       size: 20,
+                    //     ),
+                    //   ),
+                    // ),
+                    Center(
+                      child: Column(
+                        children: <Widget>[
+                          // Rating Bar
+                          StreamBuilder(
+                              stream: _controller.averageStream,
+                              builder: (context, snapshot) {
+                                return RatingBar.builder(
+                                  allowHalfRating: true,
+                                  initialRating: snapshot.hasData ? snapshot.data : 0,
+                                  itemCount: 5,
+                                  minRating: 0,
+                                  itemSize: 27,
+                                  itemBuilder: (context, _) => Icon(
+                                    Icons.star,
+                                    color: Colors.amberAccent,
+                                  ),
+                                );
+                              }),
+                          SizedBox(
+                            height: 2,
+                          ),
+                          StreamBuilder(
+                              stream: _controller.totalReviewStream,
+                              builder: (context, snapshot) {
+                                return Text(
+                                  snapshot.hasData ? '${snapshot.data} Reviews' : '0 Reviews',
+                                  style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                );
+                              }),
+                        ],
                       ),
                     ),
-                  ),
-                  Center(
-                    child: Column(
-                      children: <Widget>[
-                        // Rating Bar
-                        StreamBuilder(
-                            stream: _controller.averageStream,
-                            builder: (context, snapshot) {
-                              return RatingBar.builder(
-                                allowHalfRating: true,
-                                initialRating: snapshot.hasData ? snapshot.data : 0,
-                                itemCount: 5,
-                                minRating: 0,
-                                itemSize: 27,
-                                itemBuilder: (context, _) => Icon(
-                                  Icons.star,
-                                  color: Colors.amberAccent,
-                                ),
-                              );
-                            }),
-                        SizedBox(
-                          height: 2,
-                        ),
-                        StreamBuilder(
-                            stream: _controller.totalReviewStream,
-                            builder: (context, snapshot) {
-                              return Text(
-                                snapshot.hasData ? '${snapshot.data} Reviews' : '0 Reviews',
-                                style: TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              );
-                            }),
-                      ],
-                    ),
-                  ),
-                  //TODO: Add Comment
-                  Positioned(
-                    top: 0,
-                    right: 10,
-                    child: IconButton(
-                        icon: Icon(
-                          Icons.add_comment,
-                          size: 22,
-                        ),
-                        onPressed: () {
-                          //TODO: Add comment
-                          if (_isLogging) {
-                            showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  double _ratingPoint = 0;
-                                  String _comment = '';
-                                  return Dialog(
-                                    elevation: 0.0,
-                                    backgroundColor: kColorWhite,
-                                    child: Container(
-                                      height: 300,
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                          vertical: 7,
-                                          horizontal: 15,
-                                        ),
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                                          children: <Widget>[
-                                            //Rating
-                                            Expanded(
-                                              flex: 2,
-                                              child: Row(
-                                                children: <Widget>[
-                                                  Expanded(
-                                                    flex: 1,
-                                                    child: Text(
-                                                      'Đánh giá:',
-                                                      style: TextStyle(
-                                                        fontSize: 18,
-                                                        fontWeight: FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    flex: 3,
-                                                    child: Center(
-                                                      child: RatingBar.builder(
-                                                        itemCount: 5,
-                                                        onRatingUpdate: (value) {
-                                                          _ratingPoint = value;
-                                                        },
-                                                        minRating: 0,
-                                                        maxRating: 5,
-                                                        allowHalfRating: true,
-                                                        itemSize: 35,
-                                                        itemBuilder: (context, _) => Icon(
-                                                          Icons.star,
-                                                          color: Colors.amberAccent,
+                    //TODO: Add Comment
+                    Positioned(
+                      top: 0,
+                      right: 10,
+                      child: IconButton(
+                          icon: Icon(
+                            Icons.add_comment,
+                            size: 22,
+                          ),
+                          onPressed: () {
+                            //TODO: Add comment
+                            if (_isLogging) {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    double _ratingPoint = 0;
+                                    String _comment = '';
+                                    return Dialog(
+                                      elevation: 0.0,
+                                      backgroundColor: kColorWhite,
+                                      child: Container(
+                                        height: 300,
+                                        child: Padding(
+                                          padding: EdgeInsets.symmetric(
+                                            vertical: 7,
+                                            horizontal: 15,
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                                            children: <Widget>[
+                                              //Rating
+                                              Expanded(
+                                                flex: 2,
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    Expanded(
+                                                      flex: 1,
+                                                      child: Text(
+                                                        'Đánh giá:',
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight: FontWeight.bold,
                                                         ),
                                                       ),
                                                     ),
-                                                  )
-                                                ],
+                                                    Expanded(
+                                                      flex: 3,
+                                                      child: Center(
+                                                        child: RatingBar.builder(
+                                                          itemCount: 5,
+                                                          onRatingUpdate: (value) {
+                                                            _ratingPoint = value;
+                                                          },
+                                                          minRating: 0,
+                                                          maxRating: 5,
+                                                          allowHalfRating: true,
+                                                          itemSize: 35,
+                                                          itemBuilder: (context, _) => Icon(
+                                                            Icons.star,
+                                                            color: Colors.amberAccent,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              height: 10,
-                                            ),
-                                            // Comment
-                                            Text(
-                                              'Bình luận:',
-                                              style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
+                                              SizedBox(
+                                                height: 10,
                                               ),
-                                            ),
-                                            Expanded(
-                                                flex: 10,
-                                                child: StreamBuilder(
-                                                  stream: _controller.commentStream,
-                                                  builder: (context, snapshot) => TextField(
-                                                    decoration: InputDecoration(
-                                                        errorText: snapshot.hasError ? snapshot.error : null,
-                                                        errorStyle: kBoldTextStyle.copyWith(fontSize: 12),
-                                                        border: OutlineInputBorder(),
-                                                        labelStyle: kBoldTextStyle.copyWith(fontSize: 15)),
-                                                    keyboardType: TextInputType.multiline,
-                                                    maxLines: null,
-                                                    onChanged: (cmt) {
-                                                      _comment = cmt;
+                                              // Comment
+                                              Text(
+                                                'Bình luận:',
+                                                style: TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Expanded(
+                                                  flex: 10,
+                                                  child: StreamBuilder(
+                                                    stream: _controller.commentStream,
+                                                    builder: (context, snapshot) => TextField(
+                                                      decoration: InputDecoration(
+                                                          errorText: snapshot.hasError ? snapshot.error : null,
+                                                          errorStyle: kBoldTextStyle.copyWith(fontSize: 12),
+                                                          border: OutlineInputBorder(),
+                                                          labelStyle: kBoldTextStyle.copyWith(fontSize: 15)),
+                                                      keyboardType: TextInputType.multiline,
+                                                      maxLines: null,
+                                                      onChanged: (cmt) {
+                                                        _comment = cmt;
                                                       },),)),
-                                            Expanded(
-                                              flex: 2,
-                                              child: Row(
-                                                children: <Widget>[
-                                                  // Button Add
-                                                  //TODO: Save Button
-                                                  Expanded(
-                                                    child: CusRaisedButton(
-                                                      title: 'Thêm',
-                                                      isDisablePress: true,
-                                                      onPress: () {
-                                                        StorageUtil.getUserInfo().then((user) async {
-                                                          String username = user.fullName;
-                                                          bool result = await _controller.onComment(
-                                                              productId: widget.productId,
-                                                              comment: _comment,
-                                                              ratingPoint: _ratingPoint,
-                                                              username: username);
-                                                          if (result) {
-                                                            setState(() {
+                                              Expanded(
+                                                flex: 2,
+                                                child: Row(
+                                                  children: <Widget>[
+                                                    // Button Add
+                                                    //TODO: Save Button
+                                                    Expanded(
+                                                      child: CusRaisedButton(
+                                                        title: 'Thêm',
+                                                        isDisablePress: true,
+                                                        onPress: () {
+                                                          StorageUtil.getUserInfo().then((user) async {
+                                                            String username = user.fullName;
+                                                            bool result = await _controller.onComment(
+                                                                productId: widget.productId,
+                                                                comment: _comment,
+                                                                ratingPoint: _ratingPoint,
+                                                                username: username);
+                                                            if (result) {
+                                                              setState(() {
 
-                                                            });
-                                                            Navigator.pop(context);
-                                                          }
-                                                        });
-                                                      },
-                                                      backgroundColor: kColorBlack,
+                                                              });
+                                                              Navigator.pop(context);
+                                                            }
+                                                          });
+                                                        },
+                                                        backgroundColor: kColorBlack,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  SizedBox(
-                                                    width: 10,
-                                                  ),
-                                                  // Button Add
-                                                  Expanded(
-                                                    child: CusRaisedButton(
-                                                      title: 'Thoát',
-                                                      onPress: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      backgroundColor: kColorLightGrey,
+                                                    SizedBox(
+                                                      width: 10,
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            )
-                                          ],
+                                                    // Button Add
+                                                    Expanded(
+                                                      child: CusRaisedButton(
+                                                        title: 'Thoát',
+                                                        onPress: () {
+                                                          Navigator.pop(context);
+                                                        },
+                                                        backgroundColor: kColorLightGrey,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              )
+                                            ],
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                });
-                          } else {
-                            Navigator.pushNamed(context, 'phone_in');
-                          }
-                        }),
-                  ),
-                ],
+                                    );
+                                  });
+                            } else {
+                              Navigator.pushNamed(context, 'phone_in');
+                            }
+                          }),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
 
-          // TODO: BOTTOM
-          Expanded(
-            flex: 9,
-            child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('Comments')
-                    .orderBy('create_at')
-                    .where('product_id', isEqualTo: widget.productId)
-                    .snapshots(),
-                builder: (BuildContext context,
-                    AsyncSnapshot<QuerySnapshot> snapshot) {
-                  if (snapshot.hasData) {
-                    //TODO: set
-                    double totalReview = 0;
-                    // snapshot.data.documents.length.toDouble();
-                    double ratingPoint = 0;
+            // TODO: BOTTOM
+            Expanded(
+              flex: 9,
+              child: StreamBuilder<QuerySnapshot>(
+                  stream: FirebaseFirestore.instance
+                      .collection('Comments')
+                      .orderBy('create_at')
+                      .where('product_id', isEqualTo: widget.productId)
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasData) {
+                      //TODO: set
+                      double totalReview = 0;
+                      // snapshot.data.documents.length.toDouble();
+                      double ratingPoint = 0;
 
-                    for (var rating in snapshot.data.docs) {
-                      if (rating['type'] == 'customer') {
-                        totalReview++;
-                        ratingPoint += rating['point'];
+                      for (var rating in snapshot.data.docs) {
+                        if (rating['type'] == 'customer') {
+                          totalReview++;
+                          ratingPoint += rating['point'];
+                        }
                       }
+                      _controller.setTotalReview(totalReview.toInt());
+                      _controller.setAveragePoint(ratingPoint / totalReview);
+                      commentList =
+                          snapshot.data.docs.map((DocumentSnapshot document) {
+                            return RatingComment(
+                              username: document['name'],
+                              isAdmin: (document['type'] == 'admin'),
+                              comment: document['comment'],
+                              ratingPoint: document['point'],
+                              createAt:
+                              Util.convertDateToFullString(document['create_at']),
+                              isCanDelete: widget.isAdmin,
+                              onDelete: () {
+                                FirebaseFirestore.instance
+                                    .collection('Comments')
+                                    .doc(document.id)
+                                    .delete();
+                                setState(() {});
+                              },
+                            );
+                          }).toList();
+                      return ListView(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          children: commentList.reversed.toList());
+                    } else {
+                      return Container();
                     }
-                    _controller.setTotalReview(totalReview.toInt());
-                    _controller.setAveragePoint(ratingPoint / totalReview);
-                    commentList =
-                        snapshot.data.docs.map((DocumentSnapshot document) {
-                      return RatingComment(
-                        username: document['name'],
-                        isAdmin: (document['type'] == 'admin'),
-                        comment: document['comment'],
-                        ratingPoint: document['point'],
-                        createAt:
-                            Util.convertDateToFullString(document['create_at']),
-                        isCanDelete: widget.isAdmin,
-                        onDelete: () {
-                          FirebaseFirestore.instance
-                              .collection('Comments')
-                              .doc(document.id)
-                              .delete();
-                          setState(() {});
-                        },
-                      );
-                    }).toList();
-                    return ListView(
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        children: commentList.reversed.toList());
-                  } else {
-                    return Container();
-                  }
-                }),
-          )
-        ],
+                  }),
+            )
+          ],
+        ),
       ),
     );
   }

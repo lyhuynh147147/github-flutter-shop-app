@@ -6,7 +6,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_absolute_path/flutter_absolute_path.dart';
 import 'package:grouped_buttons/grouped_buttons.dart';
 import 'package:multi_image_picker/multi_image_picker.dart';
 import 'package:phone_verification/helpers/TextStyle.dart';
